@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D128FC92804573F001FEF73 /* ProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D128FC82804573F001FEF73 /* ProfileView.xib */; };
+		1D128FCB28045AD4001FEF73 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D128FCA28045AD4001FEF73 /* ProfileView.swift */; };
 		1DF59F7C2804566E006F8EDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF59F7B2804566E006F8EDA /* AppDelegate.swift */; };
 		1DF59F7E2804566E006F8EDA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF59F7D2804566E006F8EDA /* SceneDelegate.swift */; };
 		1DF59F802804566E006F8EDA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF59F7F2804566E006F8EDA /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		1D128FC82804573F001FEF73 /* ProfileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileView.xib; sourceTree = "<group>"; };
+		1D128FCA28045AD4001FEF73 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		1DF59F782804566E006F8EDA /* Netology_IB_Instruments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Netology_IB_Instruments.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF59F7B2804566E006F8EDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1DF59F7D2804566E006F8EDA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				1DF59F7D2804566E006F8EDA /* SceneDelegate.swift */,
 				1DF59F7F2804566E006F8EDA /* ViewController.swift */,
 				1D128FC82804573F001FEF73 /* ProfileView.xib */,
+				1D128FCA28045AD4001FEF73 /* ProfileView.swift */,
 				1DF59F812804566E006F8EDA /* Main.storyboard */,
 				1DF59F842804566F006F8EDA /* Assets.xcassets */,
 				1DF59F862804566F006F8EDA /* LaunchScreen.storyboard */,
@@ -142,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D128FCB28045AD4001FEF73 /* ProfileView.swift in Sources */,
 				1DF59F802804566E006F8EDA /* ViewController.swift in Sources */,
 				1DF59F7C2804566E006F8EDA /* AppDelegate.swift in Sources */,
 				1DF59F7E2804566E006F8EDA /* SceneDelegate.swift in Sources */,
