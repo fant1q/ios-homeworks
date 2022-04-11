@@ -14,39 +14,40 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j2E-St-zfO">
-                    <rect key="frame" x="20" y="20" width="148" height="183"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <string key="image">68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f3655555453597031493254466d413d3d2d3938363235383633312e313634616266613961663865623064333331313230323638373632352e6a7067</string>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ava-vk-cats-92" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j2E-St-zfO">
+                    <rect key="frame" x="16" y="16" width="160" height="200"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="160" id="HL2-xx-B2U"/>
+                        <constraint firstAttribute="height" constant="200" id="xea-T6-opp"/>
+                    </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="День рождения" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSE-HX-naZ">
-                    <rect key="frame" x="186" y="87" width="192" height="21"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="День рождения" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSE-HX-naZ">
+                    <rect key="frame" x="196" y="66.333333333333329" width="198" height="21"/>
                     <color key="backgroundColor" systemColor="systemPurpleColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Город" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6KS-qz-pC0">
-                    <rect key="frame" x="184" y="142" width="192" height="21"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Город" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6KS-qz-pC0">
+                    <rect key="frame" x="196" y="117.33333333333333" width="198" height="19.999999999999986"/>
                     <color key="backgroundColor" systemColor="systemYellowColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vjw-1F-rx7">
-                    <rect key="frame" x="20" y="211" width="345" height="190"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vjw-1F-rx7">
+                    <rect key="frame" x="20" y="236" width="374" height="200"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" id="dR1-51-nfp"/>
+                    </constraints>
                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                     <color key="textColor" systemColor="labelColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Имя" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QRp-Mu-QBF">
-                    <rect key="frame" x="186" y="40" width="194" height="21"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QRp-Mu-QBF">
+                    <rect key="frame" x="196" y="15.999999999999998" width="202" height="20.333333333333329"/>
                     <color key="backgroundColor" systemColor="systemMintColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
@@ -55,8 +56,24 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="QSE-HX-naZ" firstAttribute="top" secondItem="QRp-Mu-QBF" secondAttribute="bottom" constant="30" id="46E-9b-aFi"/>
+                <constraint firstItem="j2E-St-zfO" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="6O8-RQ-F6g"/>
+                <constraint firstItem="6KS-qz-pC0" firstAttribute="leading" secondItem="j2E-St-zfO" secondAttribute="trailing" constant="20" id="7Wr-gc-bwf"/>
+                <constraint firstItem="QRp-Mu-QBF" firstAttribute="leading" secondItem="j2E-St-zfO" secondAttribute="trailing" constant="20" id="AwD-JE-Qmv"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="vjw-1F-rx7" secondAttribute="trailing" constant="20" id="C5q-le-4HU"/>
+                <constraint firstItem="vjw-1F-rx7" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="P4A-T4-5KY"/>
+                <constraint firstItem="6KS-qz-pC0" firstAttribute="top" secondItem="QSE-HX-naZ" secondAttribute="bottom" constant="30" id="Rpr-6U-Z73"/>
+                <constraint firstItem="vjw-1F-rx7" firstAttribute="top" secondItem="j2E-St-zfO" secondAttribute="bottom" constant="20" id="YVs-2p-D5Y"/>
+                <constraint firstItem="QSE-HX-naZ" firstAttribute="leading" secondItem="j2E-St-zfO" secondAttribute="trailing" constant="20" id="ap3-9N-YdR"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="6KS-qz-pC0" secondAttribute="trailing" constant="20" id="lfa-Kw-EC5"/>
+                <constraint firstItem="j2E-St-zfO" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="m34-lf-1bE"/>
+                <constraint firstItem="QRp-Mu-QBF" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="v7F-KX-r7F"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="QSE-HX-naZ" secondAttribute="trailing" constant="20" id="wZ8-sj-hqB"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="QRp-Mu-QBF" secondAttribute="trailing" constant="16" id="z8U-bT-MRl"/>
+            </constraints>
             <connections>
-                <outlet property="avatar" destination="j2E-St-zfO" id="8Vh-Wk-cZf"/>
+                <outlet property="avatar" destination="j2E-St-zfO" id="qXy-Qc-Xq6"/>
                 <outlet property="birthDate" destination="QSE-HX-naZ" id="07n-eV-UdN"/>
                 <outlet property="name" destination="QRp-Mu-QBF" id="ldH-Jm-jiZ"/>
                 <outlet property="text" destination="vjw-1F-rx7" id="H7h-pr-QH3"/>
@@ -66,9 +83,7 @@
         </view>
     </objects>
     <resources>
-        <image width="621" height="720">
-            <string key="name">68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f3655555453597031493254466d413d3d2d3938363235383633312e313634616266613961663865623064333331313230323638373632352e6a7067</string>
-        </image>
+        <image name="ava-vk-cats-92" width="900" height="900"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
