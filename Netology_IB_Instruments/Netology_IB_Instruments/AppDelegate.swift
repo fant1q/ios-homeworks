@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Navigation
+//  Netology_IB_Instruments
 //
 //  Created by Денис Штоколов on 11.04.2022.
 //
