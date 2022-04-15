@@ -8,13 +8,13 @@
 import UIKit
 
 class FeedViewController: UIViewController {
-
+    
     let pushButton = UIButton()
     var post = Post(title: "Mem post")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.pushButton.setTitle("Go to the post", for: .normal)
         self.pushButton.backgroundColor = .systemMint
         self.pushButton.layer.cornerRadius = 15
