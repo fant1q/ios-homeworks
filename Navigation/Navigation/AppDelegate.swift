@@ -11,12 +11,15 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        let navigationVC1 = UINavigationController()
-        let navigationVC2 = UINavigationController()
+        let feedViewController = FeedViewController()
+        let profileViewController = ProfileViewController()
+        let navigationVC1 = UINavigationController(rootViewController: feedViewController)
+        let navigationVC2 = UINavigationController(rootViewController: profileViewController)
         
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [
@@ -33,6 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-
+    
 }
 
