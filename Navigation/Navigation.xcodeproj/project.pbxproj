@@ -15,7 +15,6 @@
 		1DCBF7DF28084A3100712F54 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCBF7DE28084A3100712F54 /* PostViewController.swift */; };
 		1DCBF7E12808511000712F54 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCBF7E02808511000712F54 /* Post.swift */; };
 		1DCBF7E52808566C00712F54 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCBF7E42808566C00712F54 /* InfoViewController.swift */; };
-		1DCBF7E92809867200712F54 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCBF7E82809867200712F54 /* AlertViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +28,6 @@
 		1DCBF7DE28084A3100712F54 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		1DCBF7E02808511000712F54 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		1DCBF7E42808566C00712F54 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
-		1DCBF7E82809867200712F54 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +85,6 @@
 				1DCBF7DA280847AF00712F54 /* ProfileViewController.swift */,
 				1DCBF7DE28084A3100712F54 /* PostViewController.swift */,
 				1DCBF7E42808566C00712F54 /* InfoViewController.swift */,
-				1DCBF7E82809867200712F54 /* AlertViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -163,7 +160,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DCBF7DF28084A3100712F54 /* PostViewController.swift in Sources */,
-				1DCBF7E92809867200712F54 /* AlertViewController.swift in Sources */,
 				1DCBF7D92808479300712F54 /* FeedViewController.swift in Sources */,
 				1DCBF7DB280847AF00712F54 /* ProfileViewController.swift in Sources */,
 				1DCBF7C52808390900712F54 /* AppDelegate.swift in Sources */,

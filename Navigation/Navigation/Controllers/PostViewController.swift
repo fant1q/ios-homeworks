@@ -10,9 +10,6 @@ import UIKit
 class PostViewController: UIViewController {
     
     var titlePost: String = "Title"
-    //    let infoBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(onInfoButtonClicked))
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -9,28 +9,44 @@ import UIKit
 
 class InfoViewController: UIViewController {
     
-    let button = UIButton()
+    let deleteButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Delete Post", for: .normal)
+        button.backgroundColor = .systemRed
+        button.layer.cornerRadius = 15
+        button.frame = CGRect(x: 140, y: 200, width: 150, height: 70)
+        button.setTitleColor(.black, for: .normal)
+        button.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
+        
+        return button
+        
+    }()
+    
+    let alertUI: UIAlertController = {
+        let alert = UIAlertController(title: "Delete Post", message: "Are you sure?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Yes", comment: "Default action"), style: .default, handler: { _ in
+            NSLog("Post has been deleted")
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("No", comment: "Default action"), style: .default, handler: { _ in
+            NSLog("Deletion cancelled")
+        }))
+        
+        return alert
+        
+    }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = .systemBackground
-        
-        self.button.setTitle("Delete Post", for: .normal)
-        self.button.backgroundColor = .systemRed
-        self.button.layer.cornerRadius = 15
-        self.view.addSubview(button)
-        self.button.frame = CGRect(x: 140, y: 200, width: 150, height: 70)
-        self.button.setTitleColor(.black, for: .normal)
-        self.button.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
+        self.view.addSubview(deleteButton)
         
     }
     
     @objc
     func buttonTap() {
-        let alertViewController = AlertViewController()
-        self.navigationController?.pushViewController(alertViewController, animated: true)
+        self.present(alertUI, animated: true)
     }
     
 }
