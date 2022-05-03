@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController {
         subView.backgroundColor = .lightGray
         self.navigationItem.title = titleProfile
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let h = view.frame.height - 105
@@ -32,7 +33,11 @@ class ProfileViewController: UIViewController {
         view.addSubview(subView.avatar)
         view.addSubview(subView.statusButton)
         view.addSubview(subView.statusText)
+        subView.statusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         
     }
     
+    @objc func buttonPressed() {
+        print(subView.statusText.text!)
+    }
 }

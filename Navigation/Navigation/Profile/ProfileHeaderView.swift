@@ -11,7 +11,7 @@ import UIKit
 class ProfileHeaderView: UIView {
     
     var name: UILabel = {
-        let text = UILabel(frame: CGRect(x: 152, y: 10, width: 200, height: 200))
+        let text = UILabel(frame: CGRect(x: 152, y: 87, width: 150, height: 20))
         text.text = "Cyber Cat"
         text.textColor = .black
         text.font = UIFont.boldSystemFont(ofSize: 18)
@@ -42,11 +42,12 @@ class ProfileHeaderView: UIView {
     }()
     
     let statusText: UILabel = {
-        let label = UILabel(frame: CGRect(x: 152, y: 54, width: 200, height: 200))
+        let label = UILabel(frame: CGRect(x: 152, y: 148, width: 200, height: 18))
         label.text = "Waiting for something..."
         label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
+    
 }
 
