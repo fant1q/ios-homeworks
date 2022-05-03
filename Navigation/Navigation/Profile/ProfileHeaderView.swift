@@ -32,7 +32,7 @@ class ProfileHeaderView: UIView {
         button.setTitle("Show Status", for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 12
-        button.frame = CGRect(x: 16, y: 192, width: 384, height: 50)
+        button.frame = CGRect(x: 16, y: 212, width: 384, height: 50)
         button.setTitleColor(.white, for: .normal)
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
@@ -47,6 +47,20 @@ class ProfileHeaderView: UIView {
         label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 14)
         return label
+    }()
+    
+    let statusField: UITextField = {
+        let textField = UITextField(frame: CGRect(x: 152, y: 166, width: 250, height: 40))
+        textField.text = "Listening to music"
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
+        textField.leftViewMode = .always
+        textField.backgroundColor = .white
+        textField.font = UIFont.systemFont(ofSize: 15)
+        textField.textColor = .black
+        textField.layer.cornerRadius = 12
+        textField.layer.borderColor = UIColor.black.cgColor
+        textField.layer.borderWidth = 1
+        return textField
     }()
     
 }

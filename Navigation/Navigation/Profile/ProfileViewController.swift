@@ -10,6 +10,7 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     var titleProfile: String = "Profile"
+    private var statusText: String = ""
     
     let subView: ProfileHeaderView = {
         let view = ProfileHeaderView()
@@ -34,10 +35,18 @@ class ProfileViewController: UIViewController {
         view.addSubview(subView.statusButton)
         view.addSubview(subView.statusText)
         subView.statusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        
+        view.addSubview(subView.statusField)
+        subView.statusField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
     }
     
     @objc func buttonPressed() {
-        print(subView.statusText.text!)
+        subView.statusText.text = subView.statusField.text
+        subView.statusButton.setTitle("Show Status", for: .normal)
+        subView.statusField.endEditing(true)
+    }
+    
+    @objc func statusTextChanged(_ textField: UITextField) {
+        subView.statusButton.setTitle("Set Status", for: .normal)
+        statusText = textField.text ?? ""
     }
 }
