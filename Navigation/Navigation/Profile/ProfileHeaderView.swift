@@ -11,7 +11,7 @@ import UIKit
 class ProfileHeaderView: UIView {
     
     var name: UILabel = {
-        let text = UILabel(frame: CGRect(x: 152, y: 87, width: 150, height: 20))
+        let text = UILabel(frame: CGRect(x: 152, y: 107, width: 150, height: 20))
         text.text = "Cyber Cat"
         text.textColor = .black
         text.font = UIFont.boldSystemFont(ofSize: 18)
@@ -20,7 +20,7 @@ class ProfileHeaderView: UIView {
     
     let avatar: UIImageView = {
         let image = UIImageView(image: UIImage(named: "cyberCat-1"))
-        image.frame = CGRect(x: 16, y: 76, width: 100, height: 100)
+        image.frame = CGRect(x: 16, y: 106, width: 100, height: 100)
         image.layer.borderWidth = 3
         image.layer.borderColor = UIColor.systemBackground.cgColor
         image.layer.cornerRadius = 50
@@ -32,7 +32,7 @@ class ProfileHeaderView: UIView {
         button.setTitle("Show Status", for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 12
-        button.frame = CGRect(x: 16, y: 212, width: 384, height: 50)
+        button.frame = CGRect(x: 16, y: 232, width: 384, height: 50)
         button.setTitleColor(.white, for: .normal)
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 4, height: 4)

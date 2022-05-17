@@ -23,12 +23,7 @@ class ProfileViewController: UIViewController {
         self.view.backgroundColor = .systemBackground
         subView.backgroundColor = .lightGray
         self.navigationItem.title = titleProfile
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        let h = view.frame.height - 105
-        subView.frame = CGRect(x: 0, y: 60, width: view.frame.width, height: h)
+        view.addSubview(subView)
         view.addSubview(subView)
         view.addSubview(subView.name)
         view.addSubview(subView.avatar)
@@ -37,7 +32,16 @@ class ProfileViewController: UIViewController {
         subView.statusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         view.addSubview(subView.statusField)
         subView.statusField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
+        subView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            subView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            subView.heightAnchor.constraint(equalToConstant: 220),
+            subView.widthAnchor.constraint(equalTo: view.widthAnchor)
+            
+        ])
+        
     }
+    
     
     @objc func buttonPressed() {
         subView.statusText.text = subView.statusField.text
