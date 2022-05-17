@@ -15,6 +15,7 @@ class ProfileHeaderView: UIView {
         text.text = "Cyber Cat"
         text.textColor = .black
         text.font = UIFont.boldSystemFont(ofSize: 18)
+        text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
     
@@ -23,6 +24,7 @@ class ProfileHeaderView: UIView {
         image.layer.borderWidth = 3
         image.layer.borderColor = UIColor.systemBackground.cgColor
         image.layer.cornerRadius = 50
+        image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
@@ -36,6 +38,7 @@ class ProfileHeaderView: UIView {
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
         button.layer.shadowRadius = 4
         button.layer.shadowOpacity = 0.7
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -44,6 +47,7 @@ class ProfileHeaderView: UIView {
         label.text = "Waiting for something..."
         label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -58,6 +62,7 @@ class ProfileHeaderView: UIView {
         textField.layer.cornerRadius = 12
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1
+        textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
