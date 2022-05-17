@@ -30,26 +30,43 @@ class ProfileViewController: UIViewController {
         subView.backgroundColor = .lightGray
         self.navigationItem.title = titleProfile
         view.addSubview(subView)
-        view.addSubview(subView)
         view.addSubview(subView.name)
         view.addSubview(subView.avatar)
         view.addSubview(subView.statusButton)
         view.addSubview(subView.statusText)
-        subView.statusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         view.addSubview(subView.statusField)
+        view.addSubview(someButton)
+        subView.statusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         subView.statusField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         subView.translatesAutoresizingMaskIntoConstraints = false
+        someButton.translatesAutoresizingMaskIntoConstraints = false
+        subView.avatar.translatesAutoresizingMaskIntoConstraints = false
+        subView.name.translatesAutoresizingMaskIntoConstraints = false
+        subView.statusButton.translatesAutoresizingMaskIntoConstraints = false
+        subView.statusText.translatesAutoresizingMaskIntoConstraints = false
+        subView.statusField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             subView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             subView.heightAnchor.constraint(equalToConstant: 220),
-            subView.widthAnchor.constraint(equalTo: view.widthAnchor)
-            
-        ])
-        view.addSubview(someButton)
-        someButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
+            subView.widthAnchor.constraint(equalTo: view.widthAnchor),
             someButton.widthAnchor.constraint(equalTo: view.widthAnchor),
-            someButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            someButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            subView.avatar.topAnchor.constraint(equalTo: subView.topAnchor, constant: 16),
+            subView.avatar.leftAnchor.constraint(equalTo: subView.leftAnchor, constant: 16),
+            subView.avatar.heightAnchor.constraint(equalToConstant: 100),
+            subView.avatar.widthAnchor.constraint(equalToConstant: 100),
+            subView.name.topAnchor.constraint(equalTo: subView.topAnchor, constant: 27),
+            subView.name.centerXAnchor.constraint(equalTo: subView.centerXAnchor),
+            subView.statusButton.centerXAnchor.constraint(equalTo: subView.centerXAnchor),
+            subView.statusButton.heightAnchor.constraint(equalToConstant: 50),
+            subView.statusButton.topAnchor.constraint(equalTo: subView.avatar.bottomAnchor, constant: 32),
+            subView.statusButton.widthAnchor.constraint(equalTo: subView.widthAnchor, constant: -16),
+            subView.statusText.centerXAnchor.constraint(equalTo: subView.centerXAnchor, constant: 34),
+            subView.statusText.bottomAnchor.constraint(equalTo: subView.statusButton.topAnchor, constant: -50),
+            subView.statusField.heightAnchor.constraint(equalToConstant: 40),
+            subView.statusField.topAnchor.constraint(equalTo: subView.statusText.bottomAnchor, constant: 4),
+            subView.statusField.leftAnchor.constraint(equalTo: subView.avatar.rightAnchor, constant: 40),
+            subView.statusField.rightAnchor.constraint(equalTo: subView.rightAnchor, constant: -16)
         ])
     }
     
