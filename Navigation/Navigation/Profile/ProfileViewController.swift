@@ -16,6 +16,12 @@ class ProfileViewController: UIViewController {
         let view = ProfileHeaderView()
         return view
     }()
+    let someButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Some Button", for: .normal)
+        button.backgroundColor = .systemBlue
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +45,12 @@ class ProfileViewController: UIViewController {
             subView.widthAnchor.constraint(equalTo: view.widthAnchor)
             
         ])
-        
+        view.addSubview(someButton)
+        someButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            someButton.widthAnchor.constraint(equalTo: view.widthAnchor),
+            someButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
     
     
