@@ -16,6 +16,7 @@
 		1DCBF7DF28084A3100712F54 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCBF7DE28084A3100712F54 /* PostViewController.swift */; };
 		1DCBF7E12808511000712F54 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCBF7E02808511000712F54 /* Post.swift */; };
 		1DCBF7E52808566C00712F54 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCBF7E42808566C00712F54 /* InfoViewController.swift */; };
+		1DDFCC692843B64100FE101C /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDFCC682843B64100FE101C /* LogInViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		1DCBF7DE28084A3100712F54 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		1DCBF7E02808511000712F54 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		1DCBF7E42808566C00712F54 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		1DDFCC682843B64100FE101C /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +50,7 @@
 			children = (
 				1DCBF7DA280847AF00712F54 /* ProfileViewController.swift */,
 				1D9DAB40281FEB140003E8AE /* ProfileHeaderView.swift */,
+				1DDFCC682843B64100FE101C /* LogInViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 				1DCBF7D92808479300712F54 /* FeedViewController.swift in Sources */,
 				1DCBF7DB280847AF00712F54 /* ProfileViewController.swift in Sources */,
 				1DCBF7C52808390900712F54 /* AppDelegate.swift in Sources */,
+				1DDFCC692843B64100FE101C /* LogInViewController.swift in Sources */,
 				1D9DAB41281FEB140003E8AE /* ProfileHeaderView.swift in Sources */,
 				1DCBF7E52808566C00712F54 /* InfoViewController.swift in Sources */,
 				1DCBF7E12808511000712F54 /* Post.swift in Sources */,

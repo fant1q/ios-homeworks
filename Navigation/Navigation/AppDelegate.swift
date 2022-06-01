@@ -17,9 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let feedViewController = FeedViewController()
-        let profileViewController = ProfileViewController()
+        let logInViewController = LogInViewController()
         let navigationVC1 = UINavigationController(rootViewController: feedViewController)
-        let navigationVC2 = UINavigationController(rootViewController: profileViewController)
+        let navigationVC2 = UINavigationController(rootViewController: logInViewController)
         
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [

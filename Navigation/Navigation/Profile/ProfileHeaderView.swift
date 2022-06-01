@@ -30,7 +30,7 @@ class ProfileHeaderView: UIView {
     
     let statusButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Show Status", for: .normal)
+        button.setTitle("Set Status", for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 12
         button.setTitleColor(.white, for: .normal)
@@ -66,4 +66,44 @@ class ProfileHeaderView: UIView {
         return textField
     }()
     
+    func layout() {
+        
+        backgroundColor = .lightGray
+        
+        [name, avatar, statusButton, statusText, statusField].forEach { addSubview($0) }
+        
+        statusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        statusField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            avatar.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            avatar.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
+            avatar.heightAnchor.constraint(equalToConstant: 100),
+            avatar.widthAnchor.constraint(equalToConstant: 100),
+            name.topAnchor.constraint(equalTo: topAnchor, constant: 27),
+            name.centerXAnchor.constraint(equalTo: centerXAnchor),
+            statusButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            statusButton.heightAnchor.constraint(equalToConstant: 50),
+            statusButton.topAnchor.constraint(equalTo: avatar.bottomAnchor, constant: 32),
+            statusButton.widthAnchor.constraint(equalTo: widthAnchor, constant: -16),
+            statusText.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 34),
+            statusText.bottomAnchor.constraint(equalTo: statusButton.topAnchor, constant: -50),
+            statusField.heightAnchor.constraint(equalToConstant: 40),
+            statusField.topAnchor.constraint(equalTo: statusText.bottomAnchor, constant: 4),
+            statusField.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: 40),
+            statusField.rightAnchor.constraint(equalTo: rightAnchor, constant: -16)
+        ])
+    }
+    
+    @objc func buttonPressed() {
+        statusText.text = statusField.text
+        statusField.endEditing(true)
+    }
+    
+    @objc func statusTextChanged(_ textField: UITextField) {
+        if statusButton.isPointerInteractionEnabled == true {
+            statusText.text = textField.text ?? ""
+        }
+    }
 }
