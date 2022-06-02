@@ -9,39 +9,53 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    var titleProfile: String = "Profile"
-    
-    let subView: ProfileHeaderView = {
-        let view = ProfileHeaderView()
-        view.layout()
-        return view
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
+        return tableView
     }()
-    
-    let someButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Some Button", for: .normal)
-        button.backgroundColor = .systemBlue
-        return button
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         layout()
     }
+    
     private func layout() {
-        
+        view.addSubview(tableView)
         view.backgroundColor = .systemBackground
-        navigationItem.title = titleProfile
-        
-        [subView, someButton].forEach { view.addSubview($0)}
         
         NSLayoutConstraint.activate([
-            subView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            subView.heightAnchor.constraint(equalToConstant: 220),
-            subView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            someButton.widthAnchor.constraint(equalTo: view.widthAnchor),
-            someButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+    }
+}
+
+extension ProfileViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+        cell.setupCell(post: posts[indexPath.row])
+        
+        return cell
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        posts.count
+    }
+}
+
+extension ProfileViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = ProfileHeaderView()
+        return header
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        215
     }
 }
