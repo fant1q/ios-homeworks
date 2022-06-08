@@ -69,6 +69,11 @@ class LogInViewController: UIViewController {
     let loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("Log In", for: .normal)
+        if button .isSelected || button .isHighlighted {
+            button.alpha = 0.8
+        } else {
+            button.alpha = 1
+        }
         button.layer.cornerRadius = 10
         button.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -157,7 +162,9 @@ class LogInViewController: UIViewController {
         ])
     }
     @objc
-    func loginButtonTap() {
+    func loginButtonTap(sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        sender.isHighlighted = !sender.isHighlighted
         let profileViewController = ProfileViewController()
         self.navigationController?.pushViewController(profileViewController, animated: true)
     }
