@@ -66,15 +66,24 @@ class ProfileHeaderView: UIView {
         return textField
     }()
     
-    func layout() {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func layout() {
         
-        backgroundColor = .lightGray
+        backgroundColor = .systemGray6
         
         [name, avatar, statusButton, statusText, statusField].forEach { addSubview($0) }
         
         statusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         statusField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
-        translatesAutoresizingMaskIntoConstraints = false
+        //        translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             avatar.topAnchor.constraint(equalTo: topAnchor, constant: 16),

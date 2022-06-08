@@ -43,7 +43,6 @@ class FeedViewController: UIViewController {
         return button
     }()
     
-    var post = Post(title: "Mem post")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +67,6 @@ class FeedViewController: UIViewController {
     func handleButtonTap() {
         let postViewController = PostViewController()
         self.navigationController?.pushViewController(postViewController, animated: true)
-        postViewController.titlePost = post.title
+        postViewController.titlePost = "Mem Post"
     }
 }
