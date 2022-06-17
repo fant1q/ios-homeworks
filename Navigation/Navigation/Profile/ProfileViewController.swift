@@ -14,12 +14,14 @@ class ProfileViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "postCell")
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "photoCell")
+        tableView.sectionHeaderTopPadding = 0
         return tableView
     }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         layout()
     }
     
@@ -38,21 +40,47 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
-        cell.setupCell(post: posts[indexPath.row])
         
-        return cell
+        if indexPath.section == 0 {
+            let photosCell = tableView.dequeueReusableCell(withIdentifier: "photoCell", for: indexPath) as! PhotosTableViewCell
+            
+            return photosCell
+        } else {
+            let postCell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! PostTableViewCell
+            postCell.setupCell(post: posts[indexPath.row])
+            
+            return postCell
+        }
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            let vc = PhotosViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        posts.count
+        if section == 0 {
+            return 1
+        } else {
+            return posts.count
+        }
     }
 }
 
 extension ProfileViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = ProfileHeaderView()
-        return header
+        
+        if section == 0 {
+            let header = ProfileHeaderView()
+            return header
+        } else {
+            return UIView(frame: .zero)
+        }
     }
 }
