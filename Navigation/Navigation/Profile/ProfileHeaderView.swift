@@ -53,7 +53,7 @@ class ProfileHeaderView: UIView {
     
     let statusField: UITextField = {
         let textField = UITextField()
-        textField.text = "Listening to music"
+        textField.placeholder = "Listening to music"
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
         textField.leftViewMode = .always
         textField.backgroundColor = .white
@@ -83,7 +83,6 @@ class ProfileHeaderView: UIView {
         
         statusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         statusField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
-        //        translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             avatar.topAnchor.constraint(equalTo: topAnchor, constant: 16),
@@ -96,6 +95,7 @@ class ProfileHeaderView: UIView {
             statusButton.heightAnchor.constraint(equalToConstant: 50),
             statusButton.topAnchor.constraint(equalTo: avatar.bottomAnchor, constant: 32),
             statusButton.widthAnchor.constraint(equalTo: widthAnchor, constant: -16),
+            statusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
             statusText.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 34),
             statusText.bottomAnchor.constraint(equalTo: statusButton.topAnchor, constant: -50),
             statusField.heightAnchor.constraint(equalToConstant: 40),
