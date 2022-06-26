@@ -25,6 +25,7 @@ class ProfileHeaderView: UIView {
         image.layer.borderColor = UIColor.systemBackground.cgColor
         image.layer.cornerRadius = 50
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.isUserInteractionEnabled = true
         return image
     }()
     
@@ -66,20 +67,72 @@ class ProfileHeaderView: UIView {
         return textField
     }()
     
+    let imageAnimation: UIView = {
+        let view = UIView(frame: .init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        view.translatesAutoresizingMaskIntoConstraints = true
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        view.isHidden = true
+       return view
+    }()
+    
+    let closeButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .regular , scale: .medium)
+        button.setBackgroundImage(UIImage(systemName: "xmark", withConfiguration: largeConfig)?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
+        button.contentMode = .scaleAspectFill
+        button.addTarget(self, action: #selector(closeButtonTap), for: .touchUpInside)
+        button.isHidden = true
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
+        setupGesture()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTap))
+        avatar.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func imageTap() {
+        UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveEaseIn, animations: {
+            self.avatar.center.x = UIScreen.main.bounds.midX
+            self.avatar.center.y = UIScreen.main.bounds.midY
+            self.avatar.transform = self.avatar.transform.scaledBy(x: UIScreen.main.bounds.width / 100 , y: UIScreen.main.bounds.height / 180)
+            self.avatar.layer.cornerRadius = 0
+            self.imageAnimation.isHidden = false
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.3, animations: {
+                self.closeButton.isHidden = false
+            })
+        })
+    }
+
+    @objc private func closeButtonTap() {
+        UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveEaseIn, animations: {
+            self.closeButton.isHidden = true
+            self.avatar.transform = self.avatar.transform.scaledBy(x: 0.23 , y: 0.23)
+            self.avatar.layer.cornerRadius = 50
+            self.imageAnimation.isHidden = true
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.3, animations: {
+                self.layout()
+            })
+        })
+    }
+    
     private func layout() {
         
         backgroundColor = .systemGray6
         
-        [name, avatar, statusButton, statusText, statusField].forEach { addSubview($0) }
+        [name, statusButton, statusText, statusField, imageAnimation, avatar, closeButton].forEach { addSubview($0) }
         
         statusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         statusField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
@@ -101,7 +154,9 @@ class ProfileHeaderView: UIView {
             statusField.heightAnchor.constraint(equalToConstant: 40),
             statusField.topAnchor.constraint(equalTo: statusText.bottomAnchor, constant: 4),
             statusField.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: 40),
-            statusField.rightAnchor.constraint(equalTo: rightAnchor, constant: -16)
+            statusField.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
+            closeButton.topAnchor.constraint(equalTo: imageAnimation.safeAreaLayoutGuide.topAnchor, constant: 13),
+            closeButton.trailingAnchor.constraint(equalTo: imageAnimation.trailingAnchor, constant: -26)
         ])
     }
     
