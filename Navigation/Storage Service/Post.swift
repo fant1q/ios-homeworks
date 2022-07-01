@@ -8,13 +8,13 @@
 import Foundation
 import UIKit
 
-struct Post {
+public struct Post {
     
-    let author: String
-    let description: String
-    let image: UIImage
-    let likes: Int
-    let views: Int
+    public let author: String
+    public let description: String
+    public let image: UIImage
+    public let likes: Int
+    public let views: Int
     
     init(author: String, description: String, image: UIImage, likes: Int, views: Int) {
         self.author = author
@@ -49,4 +49,4 @@ let post4 = Post(author: "Lexus",
                  likes: 50,
                  views: 129)
 
-let posts = [post1, post2, post3, post4]
+public let posts = [post1, post2, post3, post4]
