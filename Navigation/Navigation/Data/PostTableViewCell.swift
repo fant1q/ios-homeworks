@@ -7,6 +7,7 @@
 
 import UIKit
 import Storage_Service
+import iOSIntPackage
 
 class PostTableViewCell: UITableViewCell {
     
@@ -70,12 +71,22 @@ class PostTableViewCell: UITableViewCell {
     }
     
     func setupCell(post: Post) {
-        carImageView.image = post.image
+        carImageView.image = self.filterImage(post.image)
+//        self.filterImage(carImageView.image!)
         authorLabel.text = post.author
         descriptionLabel.text = post.description
         likesLabel.text = "Likes: \(post.likes)"
         viewsLabel.text = "Views: \(post.views)"
         
+    }
+    
+    public func filterImage(_ sourceImage: UIImage) -> UIImage {
+        let imageProcessor = ImageProcessor()
+        let image = sourceImage
+        imageProcessor.processImage(sourceImage: image, filter: .motionBlur(radius: 20), completion: { _ in
+            print("filter applyed")
+        })
+        return image
     }
     
     private func layuot() {
