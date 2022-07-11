@@ -73,7 +73,7 @@ class ProfileHeaderView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = true
         view.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         view.isHidden = true
-       return view
+        return view
     }()
     
     let closeButton: UIButton = {
@@ -115,7 +115,7 @@ class ProfileHeaderView: UIView {
             })
         })
     }
-
+    
     @objc private func closeButtonTap() {
         UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveEaseIn, animations: {
             self.closeButton.isHidden = true
@@ -142,7 +142,7 @@ class ProfileHeaderView: UIView {
             make.top.equalToSuperview().offset(27)
             make.centerX.equalToSuperview()
         }
-
+        
         statusButton.snp.makeConstraints { (make) -> Void in
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
@@ -150,26 +150,26 @@ class ProfileHeaderView: UIView {
             make.width.equalToSuperview().offset(-16)
             make.bottom.equalToSuperview().offset(-16)
         }
-
+        
         statusText.snp.makeConstraints { (make) -> Void in
             make.centerX.equalToSuperview().offset(34)
             make.bottom.equalTo(statusButton.snp.top).offset(-50)
         }
-
+        
         statusField.snp.makeConstraints { (make) -> Void in
             make.height.equalTo(40)
             make.top.equalTo(statusText.snp.bottom).offset(4)
             make.leading.equalTo(avatar.snp.trailing).offset(40)
             make.trailing.equalToSuperview().offset(-16)
         }
-
+        
         avatar.snp.makeConstraints { (make) -> Void in
             make.top.equalToSuperview().offset(16)
             make.leading.equalToSuperview().offset(16)
             make.height.equalTo(100)
             make.width.equalTo(100)
         }
-
+        
         closeButton.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(imageAnimation.safeAreaLayoutGuide.snp.top).offset(13)
             make.trailing.equalTo(imageAnimation.snp.trailing).offset(-26)

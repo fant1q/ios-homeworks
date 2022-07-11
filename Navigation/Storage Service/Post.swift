@@ -24,15 +24,6 @@ public struct Post {
         self.likes = likes
         self.views = views
     }
-    
-//    public func filterImage(_ sourceImage: UIImage) -> UIImage {
-//        let imageProcessor = ImageProcessor()
-//        let image = sourceImage
-//        imageProcessor.processImage(sourceImage: image, filter: .chrome, completion: { _ in
-//            print("filter applyed")
-//        })
-//        return image
-//    }
 }
 
 let post1 = Post(author: "Mercedes - Benz",
@@ -60,18 +51,3 @@ let post4 = Post(author: "Lexus",
                  views: 129)
 
 public let posts = [post1, post2, post3, post4]
-
-//let ut = ImageProcessor().processImage(sourceImage: post1.image, filter: .noir, completion: { _ in
-//    print("1") })
-//let noir = ImageProcessor()
-//noir.processImage(sourceImage: post1.image, filter: .noir, completion: { _ in print("1") })
-
-//public func filterImage(_ sourceImage: UIImage) -> UIImage {
-//    let imageProcessor = ImageProcessor()
-//    let image = sourceImage
-//    imageProcessor.processImage(sourceImage: image, filter: .noir, completion: { _ in
-//        print("filter applyed")
-//    })
-//    return image
-//}
-

@@ -72,7 +72,6 @@ class PostTableViewCell: UITableViewCell {
     
     func setupCell(post: Post) {
         carImageView.image = self.filterImage(post.image)
-//        self.filterImage(carImageView.image!)
         authorLabel.text = post.author
         descriptionLabel.text = post.description
         likesLabel.text = "Likes: \(post.likes)"
@@ -82,8 +81,9 @@ class PostTableViewCell: UITableViewCell {
     
     public func filterImage(_ sourceImage: UIImage) -> UIImage {
         let imageProcessor = ImageProcessor()
-        let image = sourceImage
-        imageProcessor.processImage(sourceImage: image, filter: .motionBlur(radius: 20), completion: { _ in
+        var image = UIImage()
+        imageProcessor.processImage(sourceImage: sourceImage, filter: .noir, completion: { filtredImage in
+            image = filtredImage!
             print("filter applyed")
         })
         return image
