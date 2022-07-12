@@ -7,12 +7,13 @@
 
 import Foundation
 import UIKit
+import iOSIntPackage
 
 public struct Post {
     
     public let author: String
     public let description: String
-    public let image: UIImage
+    public var image: UIImage
     public let likes: Int
     public let views: Int
     

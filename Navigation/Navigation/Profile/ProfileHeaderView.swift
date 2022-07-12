@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 class ProfileHeaderView: UIView {
     
@@ -72,7 +73,7 @@ class ProfileHeaderView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = true
         view.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         view.isHidden = true
-       return view
+        return view
     }()
     
     let closeButton: UIButton = {
@@ -114,7 +115,7 @@ class ProfileHeaderView: UIView {
             })
         })
     }
-
+    
     @objc private func closeButtonTap() {
         UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveEaseIn, animations: {
             self.closeButton.isHidden = true
@@ -137,27 +138,42 @@ class ProfileHeaderView: UIView {
         statusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         statusField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         
-        NSLayoutConstraint.activate([
-            avatar.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            avatar.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
-            avatar.heightAnchor.constraint(equalToConstant: 100),
-            avatar.widthAnchor.constraint(equalToConstant: 100),
-            name.topAnchor.constraint(equalTo: topAnchor, constant: 27),
-            name.centerXAnchor.constraint(equalTo: centerXAnchor),
-            statusButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            statusButton.heightAnchor.constraint(equalToConstant: 50),
-            statusButton.topAnchor.constraint(equalTo: avatar.bottomAnchor, constant: 32),
-            statusButton.widthAnchor.constraint(equalTo: widthAnchor, constant: -16),
-            statusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-            statusText.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 34),
-            statusText.bottomAnchor.constraint(equalTo: statusButton.topAnchor, constant: -50),
-            statusField.heightAnchor.constraint(equalToConstant: 40),
-            statusField.topAnchor.constraint(equalTo: statusText.bottomAnchor, constant: 4),
-            statusField.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: 40),
-            statusField.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
-            closeButton.topAnchor.constraint(equalTo: imageAnimation.safeAreaLayoutGuide.topAnchor, constant: 13),
-            closeButton.trailingAnchor.constraint(equalTo: imageAnimation.trailingAnchor, constant: -26)
-        ])
+        name.snp.makeConstraints { (make) -> Void in
+            make.top.equalToSuperview().offset(27)
+            make.centerX.equalToSuperview()
+        }
+        
+        statusButton.snp.makeConstraints { (make) -> Void in
+            make.centerX.equalToSuperview()
+            make.height.equalTo(50)
+            make.top.equalTo(avatar.snp.bottom).offset(32)
+            make.width.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview().offset(-16)
+        }
+        
+        statusText.snp.makeConstraints { (make) -> Void in
+            make.centerX.equalToSuperview().offset(34)
+            make.bottom.equalTo(statusButton.snp.top).offset(-50)
+        }
+        
+        statusField.snp.makeConstraints { (make) -> Void in
+            make.height.equalTo(40)
+            make.top.equalTo(statusText.snp.bottom).offset(4)
+            make.leading.equalTo(avatar.snp.trailing).offset(40)
+            make.trailing.equalToSuperview().offset(-16)
+        }
+        
+        avatar.snp.makeConstraints { (make) -> Void in
+            make.top.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(16)
+            make.height.equalTo(100)
+            make.width.equalTo(100)
+        }
+        
+        closeButton.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(imageAnimation.safeAreaLayoutGuide.snp.top).offset(13)
+            make.trailing.equalTo(imageAnimation.snp.trailing).offset(-26)
+        }
     }
     
     @objc func buttonPressed() {
