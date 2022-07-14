@@ -23,7 +23,7 @@ class LogInViewController: UIViewController {
         return $0
     }(UIView())
     
-    private lazy var loginField: UITextField = {
+    lazy var loginField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Email or phone"
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
@@ -66,7 +66,7 @@ class LogInViewController: UIViewController {
         return imageView
     }()
     
-    let loginButton: UIButton = {
+    lazy var loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("Log In", for: .normal)
         if button .isSelected || button .isHighlighted {
@@ -165,7 +165,12 @@ class LogInViewController: UIViewController {
     func loginButtonTap(sender: UIButton) {
         sender.isSelected = !sender.isSelected
         sender.isHighlighted = !sender.isHighlighted
-        let profileViewController = ProfileViewController()
+        let name = loginField.text ?? ""
+#if DEBUG
+        let profileViewController = ProfileViewController(userService: TestUserService(), name: name)
+#else
+        let profileViewController = ProfileViewController(userService: CurrentUserService(), name: name)
+#endif
         self.navigationController?.pushViewController(profileViewController, animated: true)
     }
 }
