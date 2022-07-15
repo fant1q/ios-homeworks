@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let feedViewController = FeedViewController()
         let logInViewController = LogInViewController()
-        let navigationVC1 = UINavigationController(rootViewController: feedViewController)
-        let navigationVC2 = UINavigationController(rootViewController: logInViewController)
+        let navigationVC1 = UINavigationController(rootViewController: logInViewController)
+        let navigationVC2 = UINavigationController(rootViewController: feedViewController)
         
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [
@@ -27,10 +27,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         let image1 = UIImage(systemName: "server.rack")
         let image2 = UIImage(systemName: "person")
-        navigationVC1.tabBarItem.image = image1
-        navigationVC2.tabBarItem.image = image2
-        navigationVC1.tabBarItem.title = "Feed"
-        navigationVC2.tabBarItem.title = "Profile"
+        navigationVC2.tabBarItem.image = image1
+        navigationVC1.tabBarItem.image = image2
+        navigationVC2.tabBarItem.title = "Feed"
+        navigationVC1.tabBarItem.title = "Profile"
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
         

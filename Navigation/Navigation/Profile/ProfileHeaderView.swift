@@ -11,6 +11,8 @@ import SnapKit
 
 class ProfileHeaderView: UIView {
     
+    let userService = CurrentUserService()
+    
     var name: UILabel = {
         let text = UILabel()
         text.text = "Cyber Cat"
@@ -20,7 +22,7 @@ class ProfileHeaderView: UIView {
         return text
     }()
     
-    let avatar: UIImageView = {
+    var avatar: UIImageView = {
         let image = UIImageView(image: UIImage(named: "cyberCat-1"))
         image.layer.borderWidth = 3
         image.layer.borderColor = UIColor.systemBackground.cgColor
@@ -76,7 +78,7 @@ class ProfileHeaderView: UIView {
         return view
     }()
     
-    let closeButton: UIButton = {
+    lazy var closeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .regular , scale: .medium)
@@ -132,6 +134,10 @@ class ProfileHeaderView: UIView {
     private func layout() {
         
         backgroundColor = .systemGray6
+        
+        name.text = userService.user.name
+        avatar = userService.user.avatar
+        statusText.text = userService.user.status
         
         [name, statusButton, statusText, statusField, imageAnimation, avatar, closeButton].forEach { addSubview($0) }
         
