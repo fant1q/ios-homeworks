@@ -31,11 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationVC1.tabBarItem.image = image2
         navigationVC2.tabBarItem.title = "Feed"
         navigationVC1.tabBarItem.title = "Profile"
+        navigationVC1.delegate = LoginInspector() as? UINavigationControllerDelegate
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
         
         return true
     }
-    
 }
-
