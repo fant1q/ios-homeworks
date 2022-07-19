@@ -11,6 +11,8 @@ class LogInViewController: UIViewController {
     
     private let nc = NotificationCenter.default
     
+    weak var delegate: LogInViewControllerDelegate?
+    
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -117,6 +119,7 @@ class LogInViewController: UIViewController {
     private func layuot() {
         view.addSubview(scrollView)
         
+        
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -171,7 +174,9 @@ class LogInViewController: UIViewController {
 #else
         let profileViewController = ProfileViewController(userService: CurrentUserService(), name: name)
 #endif
-        self.navigationController?.pushViewController(profileViewController, animated: true)
+        if MyLoginFactory.loginInspector().checkLoginPass(log: loginField.text!, pass: passField.text!) == true {
+            self.navigationController?.pushViewController(profileViewController, animated: true)
+        } else { return print("Error") }
     }
 }
 
@@ -180,4 +185,9 @@ extension LogInViewController: UITextFieldDelegate {
         view.endEditing(true)
         return true
     }
+}
+
+protocol LogInViewControllerDelegate: AnyObject {
+    
+    func checkLoginPass(log: String, pass: String) -> Bool
 }
