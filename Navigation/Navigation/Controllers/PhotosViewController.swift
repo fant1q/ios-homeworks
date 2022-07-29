@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
+    
+    private var publisherPhotos: [UIImage] = []
+    
+    private let publisher = ImagePublisherFacade()
     
     private lazy var collection: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -27,6 +32,10 @@ class PhotosViewController: UIViewController {
         self.navigationItem.title = "Photo Gallery"
         self.navigationController?.navigationBar.isHidden = false
         layout()
+        publisher.rechargeImageLibrary()
+        receive(images: imageStorage)
+        publisher.addImagesWithTimer(time: 0.1, repeat: 15)
+        
     }
     
     private func layout() {
@@ -43,16 +52,14 @@ class PhotosViewController: UIViewController {
 
 extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        photos.count
+        publisherPhotos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "phCollCell", for: indexPath) as! PhotosCollectionViewCell
-        cell.setupCell(photo: photos[indexPath.row])
+        cell.setupCell(photo: publisherPhotos[indexPath.row])
         return cell
     }
-    
-    
 }
 
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {
@@ -70,5 +77,12 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(top: sideInset, left: sideInset, bottom: sideInset, right: sideInset)
+    }
+}
+
+extension PhotosViewController: ImageLibrarySubscriber {
+    func receive(images: [UIImage]) {
+        images.forEach { publisherPhotos.append($0) }
+        collection.reloadData()
     }
 }
