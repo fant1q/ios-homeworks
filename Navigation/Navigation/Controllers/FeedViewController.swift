@@ -19,29 +19,9 @@ class FeedViewController: UIViewController {
         stackView.spacing = 10
         return stackView
     }()
-    var pushButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Go to the post", for: .normal)
-        button.backgroundColor = .systemMint
-        button.layer.cornerRadius = 15
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(.blue, for: .normal)
-        button.addTarget(self, action: #selector(handleButtonTap), for: .touchUpInside)
-        
-        return button
-    }()
+    let pushButton = CustomButton(title: "Go to the post", backgroundColor: .red)
     
-    var pushButton2: UIButton = {
-        let button = UIButton()
-        button.setTitle("Go to the post", for: .normal)
-        button.backgroundColor = .systemCyan
-        button.layer.cornerRadius = 15
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(.blue, for: .normal)
-        button.addTarget(self, action: #selector(handleButtonTap), for: .touchUpInside)
-        
-        return button
-    }()
+    let pushButton2 = CustomButton(title: "Go to the post", backgroundColor: .green)
     
     
     override func viewDidLoad() {
@@ -51,6 +31,12 @@ class FeedViewController: UIViewController {
         buttonStack.addArrangedSubview(pushButton)
         buttonStack.addArrangedSubview(pushButton2)
         view.addSubview(buttonStack)
+        pushButton.tapAction = { [weak self] in
+            let postViewController = PostViewController()
+            self?.navigationController?.pushViewController(postViewController, animated: true)
+            postViewController.titlePost = "Mem Post"
+        }
+        pushButton2.tapAction = pushButton.tapAction
         
         NSLayoutConstraint.activate([
             buttonStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -61,12 +47,5 @@ class FeedViewController: UIViewController {
             pushButton2.widthAnchor.constraint(equalToConstant: 120),
         ])
         
-    }
-    
-    @objc
-    func handleButtonTap() {
-        let postViewController = PostViewController()
-        self.navigationController?.pushViewController(postViewController, animated: true)
-        postViewController.titlePost = "Mem Post"
     }
 }

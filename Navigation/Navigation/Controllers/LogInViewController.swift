@@ -68,21 +68,7 @@ class LogInViewController: UIViewController {
         return imageView
     }()
     
-    lazy var loginButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Log In", for: .normal)
-        if button .isSelected || button .isHighlighted {
-            button.alpha = 0.8
-        } else {
-            button.alpha = 1
-        }
-        button.layer.cornerRadius = 10
-        button.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(loginButtonTap), for: .touchUpInside)
-        return button
-    }()
+    let loginButton = CustomButton(title: "Log In", backgroundColor: .systemBackground)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,7 +104,18 @@ class LogInViewController: UIViewController {
     
     private func layuot() {
         view.addSubview(scrollView)
-        
+        loginButton.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
+        loginButton.tapAction = { [weak self] in
+            let name = self!.loginField.text ?? ""
+#if DEBUG
+            let profileViewController = ProfileViewController(userService: TestUserService(), name: name)
+#else
+            let profileViewController = ProfileViewController(userService: CurrentUserService(), name: name)
+#endif
+            if MyLoginFactory.loginInspector().checkLoginPass(log: self!.loginField.text!, pass: self!.passField.text!) == true {
+                self?.navigationController?.pushViewController(profileViewController, animated: true)
+            } else { return print("Error") }
+        }
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -163,20 +160,6 @@ class LogInViewController: UIViewController {
             
             
         ])
-    }
-    @objc
-    func loginButtonTap(sender: UIButton) {
-        sender.isSelected = !sender.isSelected
-        sender.isHighlighted = !sender.isHighlighted
-        let name = loginField.text ?? ""
-#if DEBUG
-        let profileViewController = ProfileViewController(userService: TestUserService(), name: name)
-#else
-        let profileViewController = ProfileViewController(userService: CurrentUserService(), name: name)
-#endif
-        if MyLoginFactory.loginInspector().checkLoginPass(log: loginField.text!, pass: passField.text!) == true {
-            self.navigationController?.pushViewController(profileViewController, animated: true)
-        } else { return print("Error") }
     }
 }
 

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		15198C71EC818163BDFF755D /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F38AF1CD0D768E8F49E266AE /* Pods_Navigation.framework */; };
 		1D0D3FC328490ABE00F25F64 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0D3FC228490ABE00F25F64 /* PostTableViewCell.swift */; };
+		1D360F522896D56000126F99 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D360F512896D56000126F99 /* CustomButton.swift */; };
 		1D37EA6E285CD5530087175B /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D37EA6D285CD5530087175B /* PhotosViewController.swift */; };
 		1D37EA70285CD63E0087175B /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D37EA6F285CD63E0087175B /* PhotosCollectionViewCell.swift */; };
 		1D37EA74285D16DA0087175B /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D37EA73285D16DA0087175B /* Photo.swift */; };
@@ -60,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		1D0D3FC228490ABE00F25F64 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		1D360F512896D56000126F99 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		1D37EA6D285CD5530087175B /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		1D37EA6F285CD63E0087175B /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		1D37EA73285D16DA0087175B /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				1DEE567E2881A15300C64233 /* Checker.swift */,
 				1DB18DE5287E056A001285DC /* User.swift */,
 				1DEE56802881A9E200C64233 /* LoginInspector.swift */,
+				1D360F512896D56000126F99 /* CustomButton.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				1D9DAB41281FEB140003E8AE /* ProfileHeaderView.swift in Sources */,
 				1D37EA74285D16DA0087175B /* Photo.swift in Sources */,
 				1DCBF7E52808566C00712F54 /* InfoViewController.swift in Sources */,
+				1D360F522896D56000126F99 /* CustomButton.swift in Sources */,
 				1D37EA6E285CD5530087175B /* PhotosViewController.swift in Sources */,
 				1D0D3FC328490ABE00F25F64 /* PostTableViewCell.swift in Sources */,
 				1DEE56812881A9E200C64233 /* LoginInspector.swift in Sources */,
