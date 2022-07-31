@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        let feedViewController = FeedViewController()
+        let feedViewController = FeedViewController(model: FeedModel())
         let logInViewController = LogInViewController()
         let navigationVC1 = UINavigationController(rootViewController: logInViewController)
         let navigationVC2 = UINavigationController(rootViewController: feedViewController)
