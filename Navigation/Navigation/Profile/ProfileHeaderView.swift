@@ -32,19 +32,7 @@ class ProfileHeaderView: UIView {
         return image
     }()
     
-    let statusButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Set Status", for: .normal)
-        button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 12
-        button.setTitleColor(.white, for: .normal)
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 4, height: 4)
-        button.layer.shadowRadius = 4
-        button.layer.shadowOpacity = 0.7
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    let statusButton = CustomButton(title: "Set Status", backgroundColor: .systemBlue)
     
     let statusText: UILabel = {
         let label = UILabel()
@@ -138,10 +126,14 @@ class ProfileHeaderView: UIView {
         name.text = userService.user.name
         avatar = userService.user.avatar
         statusText.text = userService.user.status
+        statusButton.addShadow()
         
         [name, statusButton, statusText, statusField, imageAnimation, avatar, closeButton].forEach { addSubview($0) }
         
-        statusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        statusButton.tapAction = { [weak self] in
+            self!.statusText.text = self!.statusField.text
+            self!.statusField.endEditing(true)
+        }
         statusField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         
         name.snp.makeConstraints { (make) -> Void in
@@ -180,11 +172,6 @@ class ProfileHeaderView: UIView {
             make.top.equalTo(imageAnimation.safeAreaLayoutGuide.snp.top).offset(13)
             make.trailing.equalTo(imageAnimation.snp.trailing).offset(-26)
         }
-    }
-    
-    @objc func buttonPressed() {
-        statusText.text = statusField.text
-        statusField.endEditing(true)
     }
     
     @objc func statusTextChanged(_ textField: UITextField) {

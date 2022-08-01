@@ -82,7 +82,7 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
 
 extension PhotosViewController: ImageLibrarySubscriber {
     func receive(images: [UIImage]) {
-        images.forEach { publisherPhotos.append($0) }
+        publisherPhotos = images
         collection.reloadData()
     }
 }
