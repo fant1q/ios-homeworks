@@ -11,8 +11,8 @@ import iOSIntPackage
 class PhotosViewController: UIViewController {
     
     private var publisherPhotos: [UIImage] = []
-    
     private let publisher = ImagePublisherFacade()
+    var model: PhotosModel
     
     private lazy var collection: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -26,10 +26,20 @@ class PhotosViewController: UIViewController {
         return collectionView
     }()
     
+    init(model: PhotosModel) {
+        self.model = model
+        super.init(nibName: nil, bundle: nil)
+        
+        self.navigationItem.title = model.title
+        view.backgroundColor = model.color
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        self.navigationItem.title = "Photo Gallery"
         self.navigationController?.navigationBar.isHidden = false
         layout()
         publisher.rechargeImageLibrary()

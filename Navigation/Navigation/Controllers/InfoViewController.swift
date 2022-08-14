@@ -35,6 +35,20 @@ class InfoViewController: UIViewController {
         
     }()
     
+    var model: InfoModel
+    
+    init(model: InfoModel) {
+        self.model = model
+        super.init(nibName: nil, bundle: nil)
+        
+        view.backgroundColor = model.color
+        navigationItem.title = model.title
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

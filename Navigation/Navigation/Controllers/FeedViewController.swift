@@ -47,6 +47,7 @@ class FeedViewController: UIViewController {
     }()
     
     var model: FeedModel
+    var coordinator: FeedCoordinator?
     
     init(model: FeedModel) {
         self.model = model
@@ -71,9 +72,8 @@ class FeedViewController: UIViewController {
         [buttonStack, checkButton, passField, checkLabel].forEach { view.addSubview($0) }
         
         pushButton.tapAction = { [weak self] in
-            let postViewController = PostViewController()
-            self?.navigationController?.pushViewController(postViewController, animated: true)
-            postViewController.titlePost = "Mem Post"
+            self!.coordinator = FeedCoordinator(navigation: self?.navigationController ?? UINavigationController())
+            self!.coordinator?.postTransition()
         }
         pushButton2.tapAction = pushButton.tapAction
         
