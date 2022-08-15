@@ -13,6 +13,7 @@ class PhotosViewController: UIViewController {
     private var publisherPhotos: [UIImage] = []
     private let publisher = ImagePublisherFacade()
     var model: PhotosModel
+    let imageProcessor = ImageProcessor()
     
     private lazy var collection: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -43,9 +44,8 @@ class PhotosViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
         layout()
         publisher.rechargeImageLibrary()
+        publisher.addImagesWithTimer(time: 0.1, repeat: 40)
         receive(images: imageStorage)
-        publisher.addImagesWithTimer(time: 0.1, repeat: 15)
-        
     }
     
     private func layout() {
@@ -93,6 +93,26 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
 extension PhotosViewController: ImageLibrarySubscriber {
     func receive(images: [UIImage]) {
         publisherPhotos = images
-        collection.reloadData()
+        
+        let startTime = CFAbsoluteTimeGetCurrent()
+        self.imageProcessor.processImagesOnThread(sourceImages: images, filter: .noir, qos: .default, completion: { images in
+            DispatchQueue.main.async {
+                images.forEach {
+                    guard let img = $0 else { return }
+                    self.publisherPhotos.append(UIImage(cgImage: img))
+                }
+                let finishTime = CFAbsoluteTimeGetCurrent()
+                let diffTime = finishTime - startTime
+                print("\(diffTime)")
+                self.collection.reloadData()
+                
+                // filter: .sepia(intensity: 2), qos: .userInteractive - diff = 2.650012969970703
+                // filter: .sepia(intensity: 2), qos: .default - diff = 2.5466660261154175
+                // filter: .sepia(intensity: 2), qos: .background - diff = 9.493250012397766
+                // filter: .noir, qos: .default - diff = 2.536806106567383
+                // filter: .noir, qos: .background - diff = 11.157283067703247
+                
+            }
+        })
     }
 }
