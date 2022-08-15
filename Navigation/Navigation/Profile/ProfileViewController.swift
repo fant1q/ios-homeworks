@@ -21,11 +21,23 @@ class ProfileViewController: UIViewController {
         return tableView
     }()
     
-    var userService: UserService
+    var userService: UserService?
+    var name: String?
+    var model: ProfileModel
+    var coordinator: ProfileCoordinator?
     
-    init (userService: UserService, name: String) {
-        self.userService = userService
+    init (model: ProfileModel) {
+        self.model = model
         super.init(nibName: nil, bundle: nil)
+        
+        self.title = model.title
+        self.userService = model.userService
+        self.name = model.name
+#if DEBUG
+        view.backgroundColor = .systemRed
+#else
+        view.backgroundColor = .systemGreen
+#endif
     }
     
     required init?(coder: NSCoder) {
@@ -35,12 +47,6 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
-        
-#if DEBUG
-        view.backgroundColor = .systemRed
-#else
-        view.backgroundColor = .systemGreen
-#endif
     }
     
     private func layout() {
@@ -77,8 +83,10 @@ extension ProfileViewController: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            let vc = PhotosViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
+            guard let name = self.name else {return print("not found userName")}
+            guard let service = self.userService else {return print("not found userService")}
+            coordinator = ProfileCoordinator(navigation: self.navigationController ?? UINavigationController(), name: name, userService: service)
+            coordinator?.photosTransition()
         }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

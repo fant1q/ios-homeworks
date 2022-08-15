@@ -12,6 +12,7 @@ class LogInViewController: UIViewController {
     private let nc = NotificationCenter.default
     
     weak var delegate: LogInViewControllerDelegate?
+    var coordinator: LoginCoordinator?
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -108,12 +109,13 @@ class LogInViewController: UIViewController {
         loginButton.tapAction = { [weak self] in
             let name = self!.loginField.text ?? ""
 #if DEBUG
-            let profileViewController = ProfileViewController(userService: TestUserService(), name: name)
+            let userService = TestUserService()
 #else
-            let profileViewController = ProfileViewController(userService: CurrentUserService(), name: name)
+            let userService = CurrentUserService()
 #endif
             if MyLoginFactory.loginInspector().checkLoginPass(log: self!.loginField.text!, pass: self!.passField.text!) == true {
-                self?.navigationController?.pushViewController(profileViewController, animated: true)
+                self!.coordinator = LoginCoordinator(navigation: self?.navigationController ?? UINavigationController())
+                self!.coordinator?.profileTransition(name: name, userService: userService)
             } else { return print("Error") }
         }
         
