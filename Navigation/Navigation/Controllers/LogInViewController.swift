@@ -69,7 +69,18 @@ class LogInViewController: UIViewController {
         return imageView
     }()
     
-    let loginButton = CustomButton(title: "Log In", backgroundColor: .systemBackground)
+    private let loginButton = CustomButton(title: "Log In", backgroundColor: .systemBackground)
+    private let passwordGuessingButton = CustomButton(title: "Pick up a password", backgroundColor: .systemBlue)
+    
+    let bruteForce = BruteForce()
+    let passOperation = OperationQueue()
+    
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.style = .medium
+        return indicator
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,6 +129,22 @@ class LogInViewController: UIViewController {
                 self!.coordinator?.profileTransition(name: name, userService: userService)
             } else { return print("Error") }
         }
+        passwordGuessingButton.tapAction = { [weak self] in
+            if self!.loginField.text?.isEmpty == false {
+                self!.activityIndicator.startAnimating()
+                guard let enteredLogin = self!.loginField.text else { return }
+                self!.bruteForce.completionBlock = { [weak self] in
+                    DispatchQueue.main.async {
+                        self!.passField.text = self!.bruteForce.bruteForce(login: enteredLogin)
+                        self!.passField.isSecureTextEntry = false
+                        self!.activityIndicator.stopAnimating()
+                    }
+                }
+                self!.passOperation.addOperation(self!.bruteForce)
+                self!.passOperation.qualityOfService = .userInitiated
+            } else { return print("no login") }
+        }
+        
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -136,7 +163,7 @@ class LogInViewController: UIViewController {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
         
-        [loginField, passField, imageView, loginButton].forEach { contentView.addSubview($0)}
+        [loginField, passField, imageView, loginButton, passwordGuessingButton, activityIndicator].forEach { contentView.addSubview($0)}
         
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
@@ -145,8 +172,8 @@ class LogInViewController: UIViewController {
             imageView.widthAnchor.constraint(equalToConstant: 100),
             imageView.bottomAnchor.constraint(equalTo: loginField.topAnchor, constant: -120),
             loginField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 120),
-            loginField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            loginField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            loginField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -36),
+            loginField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
             loginField.heightAnchor.constraint(equalToConstant: 50),
             loginField.bottomAnchor.constraint(equalTo: passField.topAnchor),
             passField.topAnchor.constraint(equalTo: loginField.bottomAnchor),
@@ -158,9 +185,16 @@ class LogInViewController: UIViewController {
             loginButton.trailingAnchor.constraint(equalTo: passField.trailingAnchor),
             loginButton.leadingAnchor.constraint(equalTo: passField.leadingAnchor),
             loginButton.heightAnchor.constraint(equalToConstant: 50),
-            loginButton.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -16)
             
+            passwordGuessingButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20),
+            passwordGuessingButton.leadingAnchor.constraint(equalTo: loginButton.leadingAnchor),
+            passwordGuessingButton.trailingAnchor.constraint(equalTo: loginButton.trailingAnchor),
+            passwordGuessingButton.heightAnchor.constraint(equalToConstant: 50),
+            passwordGuessingButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             
+            activityIndicator.topAnchor.constraint(equalTo: passField.topAnchor),
+            activityIndicator.leadingAnchor.constraint(equalTo: passField.trailingAnchor, constant: 10),
+            activityIndicator.bottomAnchor.constraint(equalTo: passField.bottomAnchor)
         ])
     }
 }
