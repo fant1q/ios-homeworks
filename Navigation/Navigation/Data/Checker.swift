@@ -13,7 +13,7 @@ class Checker {
     
     private let login = "Cat"
     
-    private let password = "kotleta9"
+    private let password = "1234"
     
     private init() {}
     

@@ -19,7 +19,6 @@ class BruteForce: Operation {
         
         while MyLoginFactory.loginInspector().checkLoginPass(log: login, pass: password) == false {
             password = self.generateBruteForce(password, fromArray: ALLOWED_CHARACTERS)
-            print(password)
         }
         return password
     }

@@ -134,7 +134,7 @@ class LogInViewController: UIViewController {
                 self!.activityIndicator.startAnimating()
                 guard let enteredLogin = self!.loginField.text else { return }
                 self!.bruteForce.completionBlock = { [weak self] in
-                    DispatchQueue.main.async {
+                    DispatchQueue.global().async {
                         self!.passField.text = self!.bruteForce.bruteForce(login: enteredLogin)
                         self!.passField.isSecureTextEntry = false
                         self!.activityIndicator.stopAnimating()
@@ -193,7 +193,7 @@ class LogInViewController: UIViewController {
             passwordGuessingButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             
             activityIndicator.topAnchor.constraint(equalTo: passField.topAnchor),
-            activityIndicator.leadingAnchor.constraint(equalTo: passField.trailingAnchor, constant: 10),
+            activityIndicator.leadingAnchor.constraint(equalTo: passField.trailingAnchor, constant: -30),
             activityIndicator.bottomAnchor.constraint(equalTo: passField.bottomAnchor)
         ])
     }
