@@ -73,7 +73,6 @@ class LogInViewController: UIViewController {
     private let passwordGuessingButton = CustomButton(title: "Pick up a password", backgroundColor: .systemBlue)
     
     let bruteForce = BruteForce()
-    let passOperation = OperationQueue()
     
     private let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
@@ -131,17 +130,17 @@ class LogInViewController: UIViewController {
         }
         passwordGuessingButton.tapAction = { [weak self] in
             if self!.loginField.text?.isEmpty == false {
+                let queue = DispatchQueue.global(qos: .userInteractive)
                 self!.activityIndicator.startAnimating()
-                guard let enteredLogin = self!.loginField.text else { return }
-                self!.bruteForce.completionBlock = { [weak self] in
-                    DispatchQueue.global().async {
-                        self!.passField.text = self!.bruteForce.bruteForce(login: enteredLogin)
+                queue.async {
+                    guard let enteredLogin = self!.loginField.text else { return }
+                    let password = self!.bruteForce.bruteForce(login: enteredLogin)
+                    DispatchQueue.main.async {
+                        self!.passField.text = password
                         self!.passField.isSecureTextEntry = false
                         self!.activityIndicator.stopAnimating()
                     }
                 }
-                self!.passOperation.addOperation(self!.bruteForce)
-                self!.passOperation.qualityOfService = .userInitiated
             } else { return print("no login") }
         }
         
