@@ -13,6 +13,7 @@ class LogInViewController: UIViewController {
     
     weak var delegate: LogInViewControllerDelegate?
     var coordinator: LoginCoordinator?
+    var myTimer: Timer?
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -70,16 +71,24 @@ class LogInViewController: UIViewController {
     }()
     
     private let loginButton = CustomButton(title: "Log In", backgroundColor: .systemBackground)
-    private let passwordGuessingButton = CustomButton(title: "Pick up a password", backgroundColor: .systemBlue)
+    private var counter = 31
     
-    let bruteForce = BruteForce()
-    
-    private let activityIndicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView()
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        indicator.style = .medium
-        return indicator
+    private let timerLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.layer.borderColor = UIColor.systemBackground.cgColor
+        label.textColor = .systemBlue
+        return label
     }()
+    
+//    private let passwordGuessingButton = CustomButton(title: "Pick up a password", backgroundColor: .systemBlue)
+//    let bruteForce = BruteForce()
+//    private let activityIndicator: UIActivityIndicatorView = {
+//        let indicator = UIActivityIndicatorView()
+//        indicator.translatesAutoresizingMaskIntoConstraints = false
+//        indicator.style = .medium
+//        return indicator
+//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,6 +96,7 @@ class LogInViewController: UIViewController {
         view.backgroundColor = .systemBackground
         self.navigationController?.navigationBar.isHidden = true
         layuot()
+        createTimer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -113,6 +123,33 @@ class LogInViewController: UIViewController {
         scrollView.verticalScrollIndicatorInsets = .zero
     }
     
+    private func createTimer() {
+        if myTimer == nil {
+            DispatchQueue.global().async {
+                self.myTimer = Timer(timeInterval: 1, target: self, selector: #selector(self.timerAction), userInfo: nil, repeats: true)
+                self.myTimer?.tolerance = 0.3
+                RunLoop.current.add((self.myTimer!), forMode: .common)
+                RunLoop.current.run()
+            }
+        }
+    }
+    
+    @objc private func timerAction() {
+        DispatchQueue.main.async {
+            if self.counter != 0 {
+                self.counter -= 1
+                if self.counter < 31 {
+                    self.timerLabel.text = "Time remaining to refresh: \(self.counter)"
+                }
+            } else {
+                self.loginField.text = ""
+                self.passField.text = ""
+                self.timerLabel.text = ""
+                self.counter = 30
+            }
+        }
+    }
+    
     private func layuot() {
         view.addSubview(scrollView)
         loginButton.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
@@ -128,22 +165,21 @@ class LogInViewController: UIViewController {
                 self!.coordinator?.profileTransition(name: name, userService: userService)
             } else { return print("Error") }
         }
-        passwordGuessingButton.tapAction = { [weak self] in
-            if self!.loginField.text?.isEmpty == false {
-                let queue = DispatchQueue.global(qos: .userInteractive)
-                self!.activityIndicator.startAnimating()
-                queue.async {
-                    guard let enteredLogin = self!.loginField.text else { return }
-                    let password = self!.bruteForce.bruteForce(login: enteredLogin)
-                    DispatchQueue.main.async {
-                        self!.passField.text = password
-                        self!.passField.isSecureTextEntry = false
-                        self!.activityIndicator.stopAnimating()
-                    }
-                }
-            } else { return print("no login") }
-        }
-        
+//        passwordGuessingButton.tapAction = { [weak self] in
+//            if self!.loginField.text?.isEmpty == false {
+//                let queue = DispatchQueue.global(qos: .userInteractive)
+//                self!.activityIndicator.startAnimating()
+//                queue.async {
+//                    guard let enteredLogin = self!.loginField.text else { return }
+//                    let password = self!.bruteForce.bruteForce(login: enteredLogin)
+//                    DispatchQueue.main.async {
+//                        self!.passField.text = password
+//                        self!.passField.isSecureTextEntry = false
+//                        self!.activityIndicator.stopAnimating()
+//                    }
+//                }
+//            } else { return print("no login") }
+//        }
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -162,7 +198,7 @@ class LogInViewController: UIViewController {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
         
-        [loginField, passField, imageView, loginButton, passwordGuessingButton, activityIndicator].forEach { contentView.addSubview($0)}
+        [loginField, passField, imageView, loginButton, timerLabel].forEach { contentView.addSubview($0)}
         
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
@@ -170,30 +206,37 @@ class LogInViewController: UIViewController {
             imageView.heightAnchor.constraint(equalToConstant: 100),
             imageView.widthAnchor.constraint(equalToConstant: 100),
             imageView.bottomAnchor.constraint(equalTo: loginField.topAnchor, constant: -120),
+            
             loginField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 120),
             loginField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -36),
             loginField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
             loginField.heightAnchor.constraint(equalToConstant: 50),
             loginField.bottomAnchor.constraint(equalTo: passField.topAnchor),
+            
             passField.topAnchor.constraint(equalTo: loginField.bottomAnchor),
             passField.trailingAnchor.constraint(equalTo: loginField.trailingAnchor),
             passField.leadingAnchor.constraint(equalTo: loginField.leadingAnchor),
             passField.heightAnchor.constraint(equalToConstant: 50),
             passField.bottomAnchor.constraint(equalTo: loginButton.topAnchor, constant: -16),
+            
             loginButton.topAnchor.constraint(equalTo: passField.bottomAnchor, constant: 16),
             loginButton.trailingAnchor.constraint(equalTo: passField.trailingAnchor),
             loginButton.leadingAnchor.constraint(equalTo: passField.leadingAnchor),
             loginButton.heightAnchor.constraint(equalToConstant: 50),
+            loginButton.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             
-            passwordGuessingButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20),
-            passwordGuessingButton.leadingAnchor.constraint(equalTo: loginButton.leadingAnchor),
-            passwordGuessingButton.trailingAnchor.constraint(equalTo: loginButton.trailingAnchor),
-            passwordGuessingButton.heightAnchor.constraint(equalToConstant: 50),
-            passwordGuessingButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            timerLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            timerLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 50)
             
-            activityIndicator.topAnchor.constraint(equalTo: passField.topAnchor),
-            activityIndicator.leadingAnchor.constraint(equalTo: passField.trailingAnchor, constant: -30),
-            activityIndicator.bottomAnchor.constraint(equalTo: passField.bottomAnchor)
+//            passwordGuessingButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20),
+//            passwordGuessingButton.leadingAnchor.constraint(equalTo: loginButton.leadingAnchor),
+//            passwordGuessingButton.trailingAnchor.constraint(equalTo: loginButton.trailingAnchor),
+//            passwordGuessingButton.heightAnchor.constraint(equalToConstant: 50),
+//            passwordGuessingButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+//
+//            activityIndicator.topAnchor.constraint(equalTo: passField.topAnchor),
+//            activityIndicator.leadingAnchor.constraint(equalTo: passField.trailingAnchor, constant: -30),
+//            activityIndicator.bottomAnchor.constraint(equalTo: passField.bottomAnchor)
         ])
     }
 }
