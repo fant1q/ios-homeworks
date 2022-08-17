@@ -17,6 +17,7 @@
 		1D1E2BF428A3D71400985864 /* PostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1E2BF328A3D71400985864 /* PostCoordinator.swift */; };
 		1D1E2BF628A3D72400985864 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1E2BF528A3D72400985864 /* LoginCoordinator.swift */; };
 		1D1E2C0128A4008700985864 /* TabBarFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1E2C0028A4008700985864 /* TabBarFactory.swift */; };
+		1D32CCA128AA868C00C8B77F /* BruteForce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D32CCA028AA868C00C8B77F /* BruteForce.swift */; };
 		1D360F522896D56000126F99 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D360F512896D56000126F99 /* CustomButton.swift */; };
 		1D360F552896E7FF00126F99 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D360F542896E7FF00126F99 /* FeedModel.swift */; };
 		1D37EA6E285CD5530087175B /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D37EA6D285CD5530087175B /* PhotosViewController.swift */; };
@@ -85,6 +86,7 @@
 		1D1E2BF328A3D71400985864 /* PostCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCoordinator.swift; sourceTree = "<group>"; };
 		1D1E2BF528A3D72400985864 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		1D1E2C0028A4008700985864 /* TabBarFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarFactory.swift; sourceTree = "<group>"; };
+		1D32CCA028AA868C00C8B77F /* BruteForce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForce.swift; sourceTree = "<group>"; };
 		1D360F512896D56000126F99 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		1D360F542896E7FF00126F99 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		1D37EA6D285CD5530087175B /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				1DB18DE5287E056A001285DC /* User.swift */,
 				1DEE56802881A9E200C64233 /* LoginInspector.swift */,
 				1D360F512896D56000126F99 /* CustomButton.swift */,
+				1D32CCA028AA868C00C8B77F /* BruteForce.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 				1D80D6D62858A9BE00507973 /* PhotosPreviewCollectionViewCell.swift in Sources */,
 				1D1E2C0128A4008700985864 /* TabBarFactory.swift in Sources */,
 				1DDFCC692843B64100FE101C /* LogInViewController.swift in Sources */,
+				1D32CCA128AA868C00C8B77F /* BruteForce.swift in Sources */,
 				1D9DAB41281FEB140003E8AE /* ProfileHeaderView.swift in Sources */,
 				1D1E2BEC28A3D67C00985864 /* MainCoordinator.swift in Sources */,
 				1D37EA74285D16DA0087175B /* Photo.swift in Sources */,
