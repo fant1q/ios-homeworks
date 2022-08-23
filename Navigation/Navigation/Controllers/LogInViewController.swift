@@ -124,10 +124,10 @@ class LogInViewController: UIViewController {
             }
         }
     }
-    private func loginTapAction() {
+    private func loginTapAction() throws {
         
-        guard let name = self.loginField.text else { return AppError().handle(error: .loginFieldEmpty(viewController: self)) }
-        guard let password = self.passField.text else { return AppError().handle(error: .passFieldEmpty(viewController: self)) }
+        guard let name = self.loginField.text else { throw ApiError.loginFieldEmpty(viewController: self) }
+        guard let password = self.passField.text else { throw ApiError.passFieldEmpty(viewController: self) }
         self.loginWithResult() { result in
             switch result {
             case .success(let userService):
@@ -180,7 +180,7 @@ class LogInViewController: UIViewController {
     private func layuot() {
         view.addSubview(scrollView)
         loginButton.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
-        loginButton.tapAction = { self.loginTapAction() }
+        loginButton.tapAction = { try? self.loginTapAction() }
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
