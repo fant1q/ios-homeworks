@@ -81,15 +81,6 @@ class LogInViewController: UIViewController {
         return label
     }()
     
-//    private let passwordGuessingButton = CustomButton(title: "Pick up a password", backgroundColor: .systemBlue)
-//    let bruteForce = BruteForce()
-//    private let activityIndicator: UIActivityIndicatorView = {
-//        let indicator = UIActivityIndicatorView()
-//        indicator.translatesAutoresizingMaskIntoConstraints = false
-//        indicator.style = .medium
-//        return indicator
-//    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -133,6 +124,42 @@ class LogInViewController: UIViewController {
             }
         }
     }
+    private func loginTapAction() throws {
+        
+        guard let name = self.loginField.text else { throw ApiError.loginFieldEmpty(viewController: self) }
+        guard let password = self.passField.text else { throw ApiError.passFieldEmpty(viewController: self) }
+        self.loginWithResult() { result in
+            switch result {
+            case .success(let userService):
+                self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
+                self.coordinator?.profileTransition(name: name, userService: userService)
+            case.failure(_):
+                if name.isEmpty == true {
+                    AppError().handle(error: .loginFieldEmpty(viewController: self))
+                } else if password.isEmpty == true {
+                    AppError().handle(error: .passFieldEmpty(viewController: self))
+                } else {
+                    AppError().handle(error: .wrongLoginOrPassword(viewController: self))
+                }
+            }
+        }
+    }
+    
+    private func loginWithResult(completion: @escaping (Result<UserService, ApiError>) -> Void) {
+        
+        guard let name = self.loginField.text else { return AppError().handle(error: .loginFieldEmpty(viewController: self)) }
+        guard let password = self.passField.text else { return AppError().handle(error: .passFieldEmpty(viewController: self)) }
+#if DEBUG
+        let userService = TestUserService()
+#else
+        let userService = CurrentUserService()
+#endif
+        if MyLoginFactory.loginInspector().checkLoginPass(log: name, pass: password) == true {
+            completion(.success(userService))
+        } else {
+            completion(.failure(.wrongLoginOrPassword(viewController: self)))
+        }
+    }
     
     @objc private func timerAction() {
         DispatchQueue.main.async {
@@ -153,33 +180,7 @@ class LogInViewController: UIViewController {
     private func layuot() {
         view.addSubview(scrollView)
         loginButton.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
-        loginButton.tapAction = { [weak self] in
-            let name = self!.loginField.text ?? ""
-#if DEBUG
-            let userService = TestUserService()
-#else
-            let userService = CurrentUserService()
-#endif
-            if MyLoginFactory.loginInspector().checkLoginPass(log: self!.loginField.text!, pass: self!.passField.text!) == true {
-                self!.coordinator = LoginCoordinator(navigation: self?.navigationController ?? UINavigationController())
-                self!.coordinator?.profileTransition(name: name, userService: userService)
-            } else { return print("Error") }
-        }
-//        passwordGuessingButton.tapAction = { [weak self] in
-//            if self!.loginField.text?.isEmpty == false {
-//                let queue = DispatchQueue.global(qos: .userInteractive)
-//                self!.activityIndicator.startAnimating()
-//                queue.async {
-//                    guard let enteredLogin = self!.loginField.text else { return }
-//                    let password = self!.bruteForce.bruteForce(login: enteredLogin)
-//                    DispatchQueue.main.async {
-//                        self!.passField.text = password
-//                        self!.passField.isSecureTextEntry = false
-//                        self!.activityIndicator.stopAnimating()
-//                    }
-//                }
-//            } else { return print("no login") }
-//        }
+        loginButton.tapAction = { try? self.loginTapAction() }
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -227,16 +228,6 @@ class LogInViewController: UIViewController {
             
             timerLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             timerLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 50)
-            
-//            passwordGuessingButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20),
-//            passwordGuessingButton.leadingAnchor.constraint(equalTo: loginButton.leadingAnchor),
-//            passwordGuessingButton.trailingAnchor.constraint(equalTo: loginButton.trailingAnchor),
-//            passwordGuessingButton.heightAnchor.constraint(equalToConstant: 50),
-//            passwordGuessingButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-//
-//            activityIndicator.topAnchor.constraint(equalTo: passField.topAnchor),
-//            activityIndicator.leadingAnchor.constraint(equalTo: passField.trailingAnchor, constant: -30),
-//            activityIndicator.bottomAnchor.constraint(equalTo: passField.bottomAnchor)
         ])
     }
 }
