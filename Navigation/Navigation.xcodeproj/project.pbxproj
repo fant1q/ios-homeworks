@@ -31,6 +31,7 @@
 		1D60C98628A92D2000EAA684 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D60C98528A92D2000EAA684 /* PostModel.swift */; };
 		1D60C98828A92D2B00EAA684 /* InfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D60C98728A92D2B00EAA684 /* InfoModel.swift */; };
 		1D60C98B28A951A400EAA684 /* InfoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D60C98A28A951A400EAA684 /* InfoCoordinator.swift */; };
+		1D6AE2FC28C0F2E900DF95E5 /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6AE2FB28C0F2E900DF95E5 /* Planet.swift */; };
 		1D72652B286DCE8D00C139F5 /* Storage_Service.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D72652A286DCE8D00C139F5 /* Storage_Service.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1D72652E286DCE8D00C139F5 /* Storage_Service.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D726528286DCE8D00C139F5 /* Storage_Service.framework */; };
 		1D72652F286DCE8D00C139F5 /* Storage_Service.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1D726528286DCE8D00C139F5 /* Storage_Service.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -41,6 +42,7 @@
 		1D9DAB41281FEB140003E8AE /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DAB40281FEB140003E8AE /* ProfileHeaderView.swift */; };
 		1DA0C44328AD386D00FC68A4 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA0C44228AD386D00FC68A4 /* ApiError.swift */; };
 		1DA1BD7E2850D3CE0083727C /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA1BD7D2850D3CE0083727C /* PhotosTableViewCell.swift */; };
+		1DACA06E28BCFF7E00BF180B /* NetworkServiceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DACA06D28BCFF7E00BF180B /* NetworkServiceInfo.swift */; };
 		1DB18DE6287E056A001285DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB18DE5287E056A001285DC /* User.swift */; };
 		1DCBF7C52808390900712F54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCBF7C42808390900712F54 /* AppDelegate.swift */; };
 		1DCBF7CE2808390A00712F54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DCBF7CD2808390A00712F54 /* Assets.xcassets */; };
@@ -101,6 +103,7 @@
 		1D60C98528A92D2000EAA684 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		1D60C98728A92D2B00EAA684 /* InfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModel.swift; sourceTree = "<group>"; };
 		1D60C98A28A951A400EAA684 /* InfoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCoordinator.swift; sourceTree = "<group>"; };
+		1D6AE2FB28C0F2E900DF95E5 /* Planet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
 		1D726528286DCE8D00C139F5 /* Storage_Service.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Storage_Service.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D72652A286DCE8D00C139F5 /* Storage_Service.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Storage_Service.h; sourceTree = "<group>"; };
 		1D78BE6D28B7A37500FC037C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -108,6 +111,7 @@
 		1D9DAB40281FEB140003E8AE /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		1DA0C44228AD386D00FC68A4 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		1DA1BD7D2850D3CE0083727C /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
+		1DACA06D28BCFF7E00BF180B /* NetworkServiceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceInfo.swift; sourceTree = "<group>"; };
 		1DB18DE5287E056A001285DC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1DCBF7C12808390900712F54 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DCBF7C42808390900712F54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -261,7 +265,9 @@
 				1D360F512896D56000126F99 /* CustomButton.swift */,
 				1DEE56802881A9E200C64233 /* LoginInspector.swift */,
 				1D78BE6D28B7A37500FC037C /* NetworkService.swift */,
+				1DACA06D28BCFF7E00BF180B /* NetworkServiceInfo.swift */,
 				1D37EA73285D16DA0087175B /* Photo.swift */,
+				1D6AE2FB28C0F2E900DF95E5 /* Planet.swift */,
 				1DB18DE5287E056A001285DC /* User.swift */,
 			);
 			path = Data;
@@ -482,6 +488,7 @@
 				1D1E2BF628A3D72400985864 /* LoginCoordinator.swift in Sources */,
 				1D60C98B28A951A400EAA684 /* InfoCoordinator.swift in Sources */,
 				1DCBF7D92808479300712F54 /* FeedViewController.swift in Sources */,
+				1D6AE2FC28C0F2E900DF95E5 /* Planet.swift in Sources */,
 				1D60C97E28A9181000EAA684 /* MainTabbarViewController.swift in Sources */,
 				1DCBF7DB280847AF00712F54 /* ProfileViewController.swift in Sources */,
 				1D1E2BEA28A3D66B00985864 /* Coordinator.swift in Sources */,
@@ -497,6 +504,7 @@
 				1D32CCA128AA868C00C8B77F /* BruteForce.swift in Sources */,
 				1D9DAB41281FEB140003E8AE /* ProfileHeaderView.swift in Sources */,
 				1D1E2BEC28A3D67C00985864 /* MainCoordinator.swift in Sources */,
+				1DACA06E28BCFF7E00BF180B /* NetworkServiceInfo.swift in Sources */,
 				1D37EA74285D16DA0087175B /* Photo.swift in Sources */,
 				1DA0C44328AD386D00FC68A4 /* ApiError.swift in Sources */,
 				1DCBF7E52808566C00712F54 /* InfoViewController.swift in Sources */,
