@@ -6,12 +6,18 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 class LoginInspector: LogInViewControllerDelegate {
-    func checkLoginPass(log: String, pass: String) -> Bool {
-        
-        let result: Bool = Checker.shared.check(logIn: log, passWord: pass)
-        return result
+    
+    private let checkerService: LoginServiceProtocol = LoginService()
+    
+    func checkCredentials(email: String, password: String, completion: @escaping (Result<AuthDataResult, NSError>) -> Void) {
+        checkerService.checkCredentials(email: email, password: password, completion: completion)
+    }
+    
+    func signUp(email: String, password: String, completion: @escaping (Result<AuthDataResult, NSError>) -> Void) {
+        checkerService.signUp(email: email, password: password, completion: completion)
     }
 }
 
@@ -23,6 +29,4 @@ class MyLoginFactory: LoginFactory {
     static func loginInspector() -> LoginInspector {
         return LoginInspector()
     }
-    
-    
 }

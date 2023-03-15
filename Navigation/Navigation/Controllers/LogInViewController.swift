@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LogInViewController: UIViewController {
     
     private let nc = NotificationCenter.default
-    
-    weak var delegate: LogInViewControllerDelegate?
+    private lazy var delegate: LogInViewControllerDelegate = LoginInspector()
+    private var handle: AuthStateDidChangeListenerHandle?
     var coordinator: LoginCoordinator?
     var myTimer: Timer?
     
@@ -94,12 +95,14 @@ class LogInViewController: UIViewController {
         super.viewWillAppear(animated)
         nc.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         nc.addObserver(self, selector: #selector(kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        handle = Auth.auth().addStateDidChangeListener { auth, user in }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         nc.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         nc.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        Auth.auth().removeStateDidChangeListener(handle!)
     }
     
     @objc private func kbdShow(notification: NSNotification) {
@@ -124,41 +127,52 @@ class LogInViewController: UIViewController {
             }
         }
     }
+    
     private func loginTapAction() throws {
         
         guard let name = self.loginField.text else { throw ApiError.loginFieldEmpty(viewController: self) }
         guard let password = self.passField.text else { throw ApiError.passFieldEmpty(viewController: self) }
-        self.loginWithResult() { result in
+        
+        delegate.checkCredentials(email: name,
+                                  password: password,
+                                  completion: { [weak self] result in
+            guard let self = self else { return }
             switch result {
-            case .success(let userService):
+            case .success(_):
+                let userService = CurrentUserService()
                 self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
                 self.coordinator?.profileTransition(name: name, userService: userService)
-            case.failure(_):
+            case .failure(_):
                 if name.isEmpty == true {
                     AppError().handle(error: .loginFieldEmpty(viewController: self))
                 } else if password.isEmpty == true {
                     AppError().handle(error: .passFieldEmpty(viewController: self))
                 } else {
-                    AppError().handle(error: .wrongLoginOrPassword(viewController: self))
+                    self.registerUser()
                 }
             }
-        }
+        })
     }
     
-    private func loginWithResult(completion: @escaping (Result<UserService, ApiError>) -> Void) {
+    private func registerUser() {
         
-        guard let name = self.loginField.text else { return AppError().handle(error: .loginFieldEmpty(viewController: self)) }
-        guard let password = self.passField.text else { return AppError().handle(error: .passFieldEmpty(viewController: self)) }
-#if DEBUG
-        let userService = TestUserService()
-#else
-        let userService = CurrentUserService()
-#endif
-        if MyLoginFactory.loginInspector().checkLoginPass(log: name, pass: password) == true {
-            completion(.success(userService))
-        } else {
-            completion(.failure(.wrongLoginOrPassword(viewController: self)))
-        }
+        let name = self.loginField.text ?? ""
+        let password = self.passField.text ?? ""
+        
+        delegate.signUp(email: name,
+                        password: password,
+                        completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(_):
+                let userService = CurrentUserService()
+                self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
+                self.coordinator?.profileTransition(name: name, userService: userService)
+                AppError().handle(error: .registrationComplete(viewController: self))
+            case .failure(_):
+                AppError().handle(error: .wrongLoginOrPassword(viewController: self))
+            }
+        })
     }
     
     @objc private func timerAction() {
@@ -239,7 +253,4 @@ extension LogInViewController: UITextFieldDelegate {
     }
 }
 
-protocol LogInViewControllerDelegate: AnyObject {
-    
-    func checkLoginPass(log: String, pass: String) -> Bool
-}
+protocol LogInViewControllerDelegate: LoginServiceProtocol, AnyObject { }
