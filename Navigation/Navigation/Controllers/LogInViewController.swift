@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LogInViewController: UIViewController {
     
     private let nc = NotificationCenter.default
-    
-    weak var delegate: LogInViewControllerDelegate?
+    private lazy var delegate: LogInViewControllerDelegate = LoginInspector()
+    private var handle: AuthStateDidChangeListenerHandle?
     var coordinator: LoginCoordinator?
     var myTimer: Timer?
     
@@ -29,7 +30,8 @@ class LogInViewController: UIViewController {
     
     lazy var loginField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Email or phone"
+        textField.placeholder = "Введите email"
+        textField.keyboardType = .emailAddress
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
         textField.leftViewMode = .always
         textField.backgroundColor = .systemGray6
@@ -47,7 +49,7 @@ class LogInViewController: UIViewController {
     
     private lazy var passField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Password"
+        textField.placeholder = "Введите пароль"
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
         textField.leftViewMode = .always
         textField.backgroundColor = .systemGray6
@@ -70,7 +72,8 @@ class LogInViewController: UIViewController {
         return imageView
     }()
     
-    private let loginButton = CustomButton(title: "Log In", backgroundColor: .systemBackground)
+    private let loginButton = CustomButton(title: "Вход", backgroundColor: .systemBackground)
+    private let signUpButton = CustomButton(title: "Регистрация", backgroundColor: .systemIndigo)
     private var counter = 31
     
     private let timerLabel: UILabel = {
@@ -94,12 +97,14 @@ class LogInViewController: UIViewController {
         super.viewWillAppear(animated)
         nc.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         nc.addObserver(self, selector: #selector(kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        handle = Auth.auth().addStateDidChangeListener { auth, user in }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         nc.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         nc.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        Auth.auth().removeStateDidChangeListener(handle!)
     }
     
     @objc private func kbdShow(notification: NSNotification) {
@@ -124,16 +129,22 @@ class LogInViewController: UIViewController {
             }
         }
     }
+    
     private func loginTapAction() throws {
         
         guard let name = self.loginField.text else { throw ApiError.loginFieldEmpty(viewController: self) }
         guard let password = self.passField.text else { throw ApiError.passFieldEmpty(viewController: self) }
-        self.loginWithResult() { result in
+        
+        delegate.checkCredentials(email: name,
+                                  password: password,
+                                  completion: { [weak self] result in
+            guard let self = self else { return }
             switch result {
-            case .success(let userService):
+            case .success(_):
+                let userService = CurrentUserService()
                 self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
                 self.coordinator?.profileTransition(name: name, userService: userService)
-            case.failure(_):
+            case .failure(_):
                 if name.isEmpty == true {
                     AppError().handle(error: .loginFieldEmpty(viewController: self))
                 } else if password.isEmpty == true {
@@ -142,23 +153,28 @@ class LogInViewController: UIViewController {
                     AppError().handle(error: .wrongLoginOrPassword(viewController: self))
                 }
             }
-        }
+        })
     }
     
-    private func loginWithResult(completion: @escaping (Result<UserService, ApiError>) -> Void) {
+    private func registerUser() {
         
-        guard let name = self.loginField.text else { return AppError().handle(error: .loginFieldEmpty(viewController: self)) }
-        guard let password = self.passField.text else { return AppError().handle(error: .passFieldEmpty(viewController: self)) }
-#if DEBUG
-        let userService = TestUserService()
-#else
-        let userService = CurrentUserService()
-#endif
-        if MyLoginFactory.loginInspector().checkLoginPass(log: name, pass: password) == true {
-            completion(.success(userService))
-        } else {
-            completion(.failure(.wrongLoginOrPassword(viewController: self)))
-        }
+        let name = self.loginField.text ?? ""
+        let password = self.passField.text ?? ""
+        
+        delegate.signUp(email: name,
+                        password: password,
+                        completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(_):
+                let userService = CurrentUserService()
+                self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
+                self.coordinator?.profileTransition(name: name, userService: userService)
+                AppError().handle(error: .registrationComplete(viewController: self))
+            case .failure(_):
+                AppError().handle(error: .shortPassword(viewController: self))
+            }
+        })
     }
     
     @objc private func timerAction() {
@@ -181,6 +197,7 @@ class LogInViewController: UIViewController {
         view.addSubview(scrollView)
         loginButton.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
         loginButton.tapAction = { try? self.loginTapAction() }
+        signUpButton.tapAction = { self.registerUser() }
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -199,7 +216,7 @@ class LogInViewController: UIViewController {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
         
-        [loginField, passField, imageView, loginButton, timerLabel].forEach { contentView.addSubview($0)}
+        [loginField, passField, imageView, loginButton, timerLabel, signUpButton].forEach { contentView.addSubview($0)}
         
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
@@ -224,7 +241,13 @@ class LogInViewController: UIViewController {
             loginButton.trailingAnchor.constraint(equalTo: passField.trailingAnchor),
             loginButton.leadingAnchor.constraint(equalTo: passField.leadingAnchor),
             loginButton.heightAnchor.constraint(equalToConstant: 50),
-            loginButton.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            //            loginButton.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            
+            signUpButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 8),
+            signUpButton.trailingAnchor.constraint(equalTo: loginButton.trailingAnchor),
+            signUpButton.leadingAnchor.constraint(equalTo: loginButton.leadingAnchor),
+            signUpButton.heightAnchor.constraint(equalToConstant: 50),
+            signUpButton.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             
             timerLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             timerLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 50)
@@ -239,7 +262,4 @@ extension LogInViewController: UITextFieldDelegate {
     }
 }
 
-protocol LogInViewControllerDelegate: AnyObject {
-    
-    func checkLoginPass(log: String, pass: String) -> Bool
-}
+protocol LogInViewControllerDelegate: LoginServiceProtocol, AnyObject { }

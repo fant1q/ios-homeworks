@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,8 +20,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainCoordinator = MainCoordinator()
         window?.rootViewController = mainCoordinator.startApplication()
         self.window?.makeKeyAndVisible()
+        FirebaseApp.configure()
         NetworkService.request(for: appConfiguration!)
-        
         return true
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }

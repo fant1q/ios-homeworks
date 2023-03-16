@@ -12,6 +12,8 @@ enum ApiError: Error {
     case loginFieldEmpty(viewController: UIViewController)
     case passFieldEmpty(viewController: UIViewController)
     case wrongLoginOrPassword(viewController: UIViewController)
+    case registrationComplete(viewController: UIViewController)
+    case shortPassword(viewController: UIViewController)
 }
 
 final class AppError {
@@ -36,6 +38,19 @@ final class AppError {
                 NSLog("The \"OK\" alert occured.")
             }))
             viewController.present(alert, animated: true, completion: nil)
+        case .registrationComplete(let viewController):
+            let alert = UIAlertController(title: "Complete!", message: "Registration done", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                NSLog("The \"OK\" alert occured.")
+            }))
+            viewController.present(alert, animated: true, completion: nil)
+        case .shortPassword(let viewController):
+            let alert = UIAlertController(title: "Error!", message: "The password must contain at least 6 characters", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                NSLog("The \"OK\" alert occured.")
+            }))
+            viewController.present(alert, animated: true, completion: nil)
+            
         }
     }
 }
