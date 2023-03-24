@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import RealmSwift
 
 class LogInViewController: UIViewController {
     
@@ -98,6 +99,18 @@ class LogInViewController: UIViewController {
         nc.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         nc.addObserver(self, selector: #selector(kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         handle = Auth.auth().addStateDidChangeListener { auth, user in }
+        
+        let userService = CurrentUserService()
+        let realm = try? Realm()
+        guard let users = realm?.objects(RealmUser.self) else { return }
+        let user = users.where {
+            $0.login == UserDefaults.standard.string(forKey: "login") ?? ""
+        }
+        
+        if user.isEmpty == false && user[0].isAuth == true {
+            self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
+            self.coordinator?.profileTransition(name: user[0].login, userService: userService)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -144,6 +157,22 @@ class LogInViewController: UIViewController {
                 let userService = CurrentUserService()
                 self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
                 self.coordinator?.profileTransition(name: name, userService: userService)
+                let realm = try? Realm()
+                do {
+                    guard let users = realm?.objects(RealmUser.self) else { return }
+                    let user = users.where {
+                        $0.login == name && $0.password == password
+                    }
+                    
+                    guard user.isEmpty == false else { return }
+                    try realm?.write {
+                        user[0].isAuth = true
+                    }
+                    UserDefaults.standard.set(user[0].login, forKey: "login")
+                    
+                } catch {
+                    print(error)
+                }
             case .failure(_):
                 if name.isEmpty == true {
                     AppError().handle(error: .loginFieldEmpty(viewController: self))
@@ -167,9 +196,21 @@ class LogInViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(_):
-                let userService = CurrentUserService()
-                self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
-                self.coordinator?.profileTransition(name: name, userService: userService)
+                //                let userService = CurrentUserService()
+                //                self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
+                //                self.coordinator?.profileTransition(name: name, userService: userService)
+                let realm = try? Realm()
+                
+                do {
+                    try realm?.write {
+                        let user = RealmUser()
+                        user.login = name
+                        user.password = password
+                        realm?.add(user)
+                    }
+                } catch {
+                    print(error)
+                }
                 AppError().handle(error: .registrationComplete(viewController: self))
             case .failure(_):
                 AppError().handle(error: .shortPassword(viewController: self))
@@ -241,7 +282,6 @@ class LogInViewController: UIViewController {
             loginButton.trailingAnchor.constraint(equalTo: passField.trailingAnchor),
             loginButton.leadingAnchor.constraint(equalTo: passField.leadingAnchor),
             loginButton.heightAnchor.constraint(equalToConstant: 50),
-            //            loginButton.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             
             signUpButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 8),
             signUpButton.trailingAnchor.constraint(equalTo: loginButton.trailingAnchor),
