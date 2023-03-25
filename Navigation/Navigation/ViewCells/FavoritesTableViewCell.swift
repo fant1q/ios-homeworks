@@ -1,23 +1,13 @@
 //
-//  PostTableViewCell.swift
+//  FavoritesTableViewCell.swift
 //  Navigation
 //
-//  Created by Денис Штоколов on 02.06.2022.
+//  Created by Денис Штоколов on 25.03.2023.
 //
 
 import UIKit
-import Storage_Service
-import iOSIntPackage
 
-class PostTableViewCell: UITableViewCell {
-    
-    var tapHandler: (() -> Void)? {
-        didSet {
-            let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
-            tap.numberOfTapsRequired = 2
-            addGestureRecognizer(tap)
-        }
-    }
+class FavoritesTableViewCell: UITableViewCell {
     
     private let content: UIView = {
         let view = UIView()
@@ -86,24 +76,14 @@ class PostTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupCell(post: Post) {
-        carImageView.image = self.filterImage(UIImage(named: post.image)!)
+    func setupCell(post: FavoritePost) {
+        carImageView.image = UIImage(named: post.image!)!
         authorLabel.text = post.author
-        descriptionLabel.text = post.description
+        descriptionLabel.text = post.postDescription
         likesLabel.text = "Likes: \(post.likes)"
         viewsLabel.text = "Views: \(post.views)"
         heart.image = post.isLiked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
-    }
-    
-    
-    public func filterImage(_ sourceImage: UIImage) -> UIImage {
-        let imageProcessor = ImageProcessor()
-        var image = UIImage()
-        imageProcessor.processImage(sourceImage: sourceImage, filter: .noir, completion: { filtredImage in
-            image = filtredImage!
-            print("filter applyed")
-        })
-        return image
+        
     }
     
     private func layuot() {
@@ -141,12 +121,5 @@ class PostTableViewCell: UITableViewCell {
             heart.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -16)
             
         ])
-    }
-    
-    @objc
-    private func tap() {
-        if tapHandler != nil {
-            tapHandler?()
-        }
     }
 }
