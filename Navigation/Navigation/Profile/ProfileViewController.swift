@@ -10,6 +10,9 @@ import Storage_Service
 
 class ProfileViewController: UIViewController {
     
+    private lazy var dataItems: [Post] = posts
+    let coreDataService = CoreDataService.shared
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -60,6 +63,24 @@ class ProfileViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
+    
+    private func savePostToFavorites(index: IndexPath.Index) {
+        if dataItems[index].isLiked {
+            var unlikedPost = dataItems[index]
+            unlikedPost.isLiked = false
+            unlikedPost.likes -= 1
+            dataItems[index] = unlikedPost
+            tableView.reloadData()
+            coreDataService.deletePost(dataItems[index])
+        } else {
+            var likedPost = dataItems[index]
+            likedPost.isLiked = true
+            likedPost.likes += 1
+            dataItems[index] = likedPost
+            tableView.reloadData()
+            coreDataService.addPost(dataItems[index])
+        }
+    }
 }
 
 extension ProfileViewController: UITableViewDataSource {
@@ -76,7 +97,8 @@ extension ProfileViewController: UITableViewDataSource {
             return photosCell
         } else {
             let postCell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! PostTableViewCell
-            postCell.setupCell(post: posts[indexPath.row])
+            postCell.setupCell(post: dataItems[indexPath.row])
+            postCell.tapHandler = { [weak self] in self?.savePostToFavorites(index: indexPath.row) }
             
             return postCell
         }

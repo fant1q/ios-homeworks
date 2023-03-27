@@ -13,6 +13,7 @@ final class TabBarFactory {
     enum Flow {
         case first
         case second
+        case third
     }
     
     let navigationController: UINavigationController = UINavigationController()
@@ -29,16 +30,19 @@ final class TabBarFactory {
         switch flow {
         case .first:
             let controller = LogInViewController()
-            navigationController.tabBarItem.image = UIImage(systemName: "person")
-            navigationController.tabBarItem.title = "Profile"
+            navigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
             navigationController.delegate = LoginInspector() as? UINavigationControllerDelegate
             navigationController.setViewControllers([controller], animated: true)
         case .second:
             let viewModel = FeedModel()
             let controller = FeedViewController(model: viewModel)
-            navigationController.tabBarItem.image = UIImage(systemName: "server.rack")
-            navigationController.tabBarItem.title = "Feed"
+            navigationController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "info.bubble"), selectedImage: UIImage(systemName: "info.bubble.fill"))
             navigationController.setViewControllers([controller], animated: true)
+        case .third:
+            let controller = FavoritesViewController(model: FavoritesModel())
+            navigationController.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "heart"), selectedImage: UIImage(systemName: "heart.fill"))
+            navigationController.setViewControllers([controller], animated: true)
+            
         }
     }
 }

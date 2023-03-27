@@ -13,6 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     let appConfiguration = AppConfiguration.allCases.randomElement()
+    let coreDataService = CoreDataService.shared
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -22,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
         FirebaseApp.configure()
         NetworkService.request(for: appConfiguration!)
+//        coreDataService.deleteAllData()
+        coreDataService.reloadFolders()
         return true
     }
     
