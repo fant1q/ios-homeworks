@@ -11,14 +11,30 @@ class FavoritesViewController: UIViewController {
     
     var model: FavoritesModel
     let coreDataService = CoreDataService.shared
+    var favoritePosts: [FavoritePost] {
+        
+        guard let searchText = self.searchController.searchBar.text,
+              !searchText.isEmpty else {
+            return coreDataService.favPosts
+        }
+        return coreDataService.searchPosts(searchText)
+    }
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(FavoritesTableViewCell.self, forCellReuseIdentifier: "favPostCell")
         tableView.sectionHeaderTopPadding = 0
         return tableView
+    }()
+    
+    private lazy var searchController: UISearchController = {
+        let view = UISearchController(searchResultsController: nil)
+        view.searchBar.searchTextField.placeholder = "Enter the name"
+        view.searchResultsUpdater = self
+        return view
     }()
     
     init(model: FavoritesModel) {
@@ -27,6 +43,7 @@ class FavoritesViewController: UIViewController {
         
         self.navigationItem.title = model.title
         view.backgroundColor = model.color
+        navigationItem.searchController = searchController
     }
     
     required init?(coder: NSCoder) {
@@ -66,13 +83,31 @@ extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let favPostCell = tableView.dequeueReusableCell(withIdentifier: "favPostCell", for: indexPath) as! FavoritesTableViewCell
-        let posts = coreDataService.favPosts
-        favPostCell.setupCell(post: posts[indexPath.row])
+        favPostCell.setupCell(post: favoritePosts[indexPath.row])
         
         return favPostCell
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return coreDataService.favPosts.count
+        return favoritePosts.count
     }
 }
 
+extension FavoritesViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (_, _, _) in
+            guard let self = self else { return }
+            let item = self.favoritePosts[indexPath.row]
+            self.coreDataService.deleteFavPost(item)
+            tableView.reloadData()
+        }
+        return .init(actions: [action])
+    }
+}
+
+extension FavoritesViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        tableView.reloadData()
+    }
+}

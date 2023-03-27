@@ -32,11 +32,16 @@ final class CoreDataService {
         return container
     }()
     
+    lazy var backgroundContext: NSManagedObjectContext = {
+        let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        backgroundContext.persistentStoreCoordinator = persistentContainer.persistentStoreCoordinator
+        return backgroundContext
+    }()
+    
     private func saveContext () {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
+        if backgroundContext.hasChanges {
             do {
-                try context.save()
+                try backgroundContext.save()
             } catch {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
@@ -54,50 +59,74 @@ final class CoreDataService {
         }
     }
     
-        func deleteAllData() {
-            let storeContainer =
-            persistentContainer.persistentStoreCoordinator
-    
-            for store in storeContainer.persistentStores {
-                do {
-                    try storeContainer.destroyPersistentStore(
-                        at: store.url!,
-                        ofType: store.type,
-                        options: nil
-                    )
-                } catch { error }
-            }
-    
-            persistentContainer = NSPersistentContainer(
-                name: "CoreData")
-    
-            persistentContainer.loadPersistentStores {
-                (store, error) in
-            }
+    func deleteAllData() {
+        let storeContainer =
+        persistentContainer.persistentStoreCoordinator
+        
+        for store in storeContainer.persistentStores {
+            do {
+                try storeContainer.destroyPersistentStore(
+                    at: store.url!,
+                    ofType: store.type,
+                    options: nil
+                )
+            } catch {  }
         }
+        
+        persistentContainer = NSPersistentContainer(
+            name: "CoreData")
+        
+        persistentContainer.loadPersistentStores {
+            (store, error) in
+        }
+    }
 }
 
 extension CoreDataService: CoreDataServiceProtocol {
     
     func addPost(_ post: Post) {
-        let addedPost = FavoritePost(context: persistentContainer.viewContext)
-        addedPost.postDescription = post.description
-        addedPost.author = post.author
-        addedPost.image = post.image
-        addedPost.likes = Int32(post.likes)
-        addedPost.views = Int32(post.views)
-        addedPost.isLiked = post.isLiked
-        saveContext()
-        reloadFolders()
+        backgroundContext.perform {
+            let addedPost = FavoritePost(context: self.backgroundContext)
+            addedPost.postDescription = post.description
+            addedPost.author = post.author
+            addedPost.image = post.image
+            addedPost.likes = Int32(post.likes)
+            addedPost.views = Int32(post.views)
+            addedPost.isLiked = post.isLiked
+            self.saveContext()
+            self.reloadFolders()
+        }
     }
     
     func deletePost(_ post: Post) {
-        let postToDelete = favPosts.first(where: { $0.postDescription == post.description })
-        guard let postToDelete = postToDelete else {
+        let index = self.favPosts.firstIndex(where: { $0.postDescription == post.description })
+        guard let index = index else {
             return
         }
-        persistentContainer.viewContext.delete(postToDelete)
-        saveContext()
-        reloadFolders()
+        self.persistentContainer.viewContext.delete(self.favPosts[index])
+        self.favPosts.remove(at: index)
+        self.saveContext()
+    }
+    
+    func deleteFavPost(_ post: FavoritePost) {
+        let index = self.favPosts.firstIndex(where: { $0.postDescription == post.postDescription })
+        guard let index = index else {
+            return
+        }
+        self.persistentContainer.viewContext.delete(self.favPosts[index])
+        self.favPosts.remove(at: index)
+        self.saveContext()
+    }
+    
+    func searchPosts(_ author: String) -> [FavoritePost] {
+        let request = FavoritePost.fetchRequest()
+        request.predicate = NSPredicate(format: "author contains[c] %@", author)
+        do {
+            let searchedPosts = try self.persistentContainer.viewContext.fetch(request)
+            return searchedPosts
+        }
+        catch {
+            return []
+        }
     }
 }
