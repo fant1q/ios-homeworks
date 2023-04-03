@@ -6,19 +6,13 @@
 //
 
 import UIKit
+import CoreData
 
 class FavoritesViewController: UIViewController {
     
     var model: FavoritesModel
     let coreDataService = CoreDataService.shared
-    var favoritePosts: [FavoritePost] {
-        
-        guard let searchText = self.searchController.searchBar.text,
-              !searchText.isEmpty else {
-            return coreDataService.favPosts
-        }
-        return coreDataService.searchPosts(searchText)
-    }
+    private var fecthedResultsController: NSFetchedResultsController<FavoritePost> = NSFetchedResultsController()
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -53,6 +47,7 @@ class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
+        initFetchedResultsController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,6 +67,17 @@ class FavoritesViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
+    
+    private func initFetchedResultsController() {
+        if let searchText = searchController.searchBar.text,
+           !searchText.isEmpty {
+            fecthedResultsController =  coreDataService.searchPosts(searchText)
+        } else {
+            fecthedResultsController = coreDataService.setupFecthedResultsController()
+        }
+        
+        fecthedResultsController.delegate = self
+    }
 }
 
 extension FavoritesViewController: UITableViewDataSource {
@@ -81,15 +87,14 @@ extension FavoritesViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let favPostCell = tableView.dequeueReusableCell(withIdentifier: "favPostCell", for: indexPath) as! FavoritesTableViewCell
-        favPostCell.setupCell(post: favoritePosts[indexPath.row])
+        favPostCell.setupCell(post: fecthedResultsController.object(at: indexPath))
         
         return favPostCell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoritePosts.count
+        fecthedResultsController.sections?[section].numberOfObjects ?? 0
     }
 }
 
@@ -98,7 +103,7 @@ extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (_, _, _) in
             guard let self = self else { return }
-            let item = self.favoritePosts[indexPath.row]
+            let item = self.fecthedResultsController.object(at: indexPath)
             self.coreDataService.deleteFavPost(item)
             tableView.reloadData()
         }
@@ -108,6 +113,48 @@ extension FavoritesViewController: UITableViewDelegate {
 
 extension FavoritesViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+        initFetchedResultsController()
         tableView.reloadData()
+    }
+}
+
+extension FavoritesViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.tableView.beginUpdates()
+    }
+    
+    func controller(
+        _ controller: NSFetchedResultsController<NSFetchRequestResult>,
+        didChange anObject: Any,
+        at indexPath: IndexPath?,
+        for type: NSFetchedResultsChangeType,
+        newIndexPath: IndexPath?
+    ) {
+        switch type {
+        case .insert:
+            guard let newIndexPath = newIndexPath else { return }
+            
+            self.tableView.insertRows(at: [newIndexPath], with: .left)
+        case .delete:
+            guard let indexPath = indexPath else { return }
+            
+            self.tableView.deleteRows(at: [indexPath], with: .right)
+        case .move:
+            guard let indexPath = indexPath, let newIndexPath = newIndexPath else { return }
+            
+            self.tableView.deleteRows(at: [indexPath], with: .right)
+            self.tableView.insertRows(at: [newIndexPath], with: .left)
+        case .update:
+            guard let indexPath = indexPath else { return }
+            
+            self.tableView.reloadRows(at: [indexPath], with: .fade)
+        @unknown default:
+            fatalError()
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.tableView.endUpdates()
     }
 }

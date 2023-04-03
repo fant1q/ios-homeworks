@@ -24,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         NetworkService.request(for: appConfiguration!)
 //        coreDataService.deleteAllData()
-        coreDataService.reloadFolders()
         return true
     }
     

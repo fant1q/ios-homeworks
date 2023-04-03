@@ -17,8 +17,8 @@ protocol CoreDataServiceProtocol {
 final class CoreDataService {
     
     static let shared = CoreDataService()
-    
     public var favPosts: [FavoritePost] = []
+    private var fecthedResultsController: NSFetchedResultsController<FavoritePost> = NSFetchedResultsController()
     
     init() {}
     
@@ -29,6 +29,7 @@ final class CoreDataService {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+        container.viewContext.automaticallyMergesChangesFromParent = true
         return container
     }()
     
@@ -57,6 +58,27 @@ final class CoreDataService {
         catch {
             print("Error")
         }
+    }
+    
+    func setupFecthedResultsController() -> NSFetchedResultsController<FavoritePost> {
+        let fetchRequest = FavoritePost.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "author", ascending: true)
+        fetchRequest.sortDescriptors = [
+            sortDescriptor
+        ]
+        fetchRequest.predicate = NSPredicate(format: "isLiked == true")
+        let fecthedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: persistentContainer.viewContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        do {
+            try fecthedResultsController.performFetch()
+        }
+        catch {
+            print(error)
+        }
+        return fecthedResultsController
     }
     
     func deleteAllData() {
@@ -94,7 +116,6 @@ extension CoreDataService: CoreDataServiceProtocol {
             addedPost.views = Int32(post.views)
             addedPost.isLiked = post.isLiked
             self.saveContext()
-            self.reloadFolders()
         }
     }
     
@@ -109,24 +130,27 @@ extension CoreDataService: CoreDataServiceProtocol {
     }
     
     func deleteFavPost(_ post: FavoritePost) {
-        let index = self.favPosts.firstIndex(where: { $0.postDescription == post.postDescription })
-        guard let index = index else {
-            return
-        }
-        self.persistentContainer.viewContext.delete(self.favPosts[index])
-        self.favPosts.remove(at: index)
+        persistentContainer.viewContext.delete(post)
         self.saveContext()
     }
     
-    func searchPosts(_ author: String) -> [FavoritePost] {
-        let request = FavoritePost.fetchRequest()
-        request.predicate = NSPredicate(format: "author contains[c] %@", author)
+    func searchPosts(_ author: String) -> NSFetchedResultsController<FavoritePost> {
+        let fetchRequest = FavoritePost.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "author", ascending: true)
+        fetchRequest.sortDescriptors = [
+            sortDescriptor
+        ]
+        fetchRequest.predicate = NSPredicate(format: "(author contains[c] %@) AND (isLiked == true)", author)
+        let fecthedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                                  managedObjectContext: persistentContainer.viewContext,
+                                                                  sectionNameKeyPath: nil,
+                                                                  cacheName: nil)
         do {
-            let searchedPosts = try self.persistentContainer.viewContext.fetch(request)
-            return searchedPosts
+            try fecthedResultsController.performFetch()
         }
         catch {
-            return []
+            print(error)
         }
+        return fecthedResultsController
     }
 }
