@@ -16,6 +16,9 @@ class LogInViewController: UIViewController {
     private var handle: AuthStateDidChangeListenerHandle?
     var coordinator: LoginCoordinator?
     var myTimer: Timer?
+    private var encryptionConfig:  Realm.Configuration  {
+        Realm.Configuration(encryptionKey: getKey())
+    }
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -132,6 +135,14 @@ class LogInViewController: UIViewController {
         scrollView.verticalScrollIndicatorInsets = .zero
     }
     
+    private func getKey() -> Data {
+        var key = Data(count: 64)
+        key.withUnsafeMutableBytes({ (pointer: UnsafeMutableRawBufferPointer) in
+            let result = SecRandomCopyBytes(kSecRandomDefault, 64, pointer.baseAddress!)
+            assert(result == 0, "Failed to get random bytes")
+        })
+        return key
+    }
     private func createTimer() {
         if myTimer == nil {
             DispatchQueue.global().async {
@@ -157,7 +168,8 @@ class LogInViewController: UIViewController {
                 let userService = CurrentUserService()
                 self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
                 self.coordinator?.profileTransition(name: name, userService: userService)
-                let realm = try? Realm()
+                
+                let realm = try? Realm(configuration: self.encryptionConfig)
                 do {
                     guard let users = realm?.objects(RealmUser.self) else { return }
                     let user = users.where {
@@ -196,10 +208,7 @@ class LogInViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(_):
-                //                let userService = CurrentUserService()
-                //                self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
-                //                self.coordinator?.profileTransition(name: name, userService: userService)
-                let realm = try? Realm()
+                let realm = try? Realm(configuration: self.encryptionConfig)
                 
                 do {
                     try realm?.write {
