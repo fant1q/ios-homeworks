@@ -136,11 +136,12 @@ class LogInViewController: UIViewController {
     }
     
     private func getKey() -> Data {
-        var key = Data(count: 64)
-        key.withUnsafeMutableBytes({ (pointer: UnsafeMutableRawBufferPointer) in
-            let result = SecRandomCopyBytes(kSecRandomDefault, 64, pointer.baseAddress!)
-            assert(result == 0, "Failed to get random bytes")
-        })
+//        var key = Data(count: 64)
+//        key.withUnsafeMutableBytes({ (pointer: UnsafeMutableRawBufferPointer) in
+//            let result = SecRandomCopyBytes(kSecRandomDefault, 64, pointer.baseAddress!)
+//            assert(result == 0, "Failed to get random bytes")
+//        })
+        let key = Data(UserDefaults.standard.string(forKey: "key")!.utf8)
         return key
     }
     private func createTimer() {
@@ -169,8 +170,8 @@ class LogInViewController: UIViewController {
                 self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
                 self.coordinator?.profileTransition(name: name, userService: userService)
                 
-                let realm = try? Realm(configuration: self.encryptionConfig)
                 do {
+                    let realm = try? Realm(configuration: self.encryptionConfig)
                     guard let users = realm?.objects(RealmUser.self) else { return }
                     let user = users.where {
                         $0.login == name && $0.password == password
@@ -208,9 +209,8 @@ class LogInViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(_):
-                let realm = try? Realm(configuration: self.encryptionConfig)
-                
                 do {
+                    let realm = try? Realm(configuration: self.encryptionConfig)
                     try realm?.write {
                         let user = RealmUser()
                         user.login = name
