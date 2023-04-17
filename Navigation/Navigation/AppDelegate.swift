@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
         FirebaseApp.configure()
         NetworkService.request(for: appConfiguration!)
-        UserDefaults.standard.set("jfORT73m1b9dhv_t0A7OJv0atHFbvFdjd8Q1hap]]uTg73sliu06HTd.xsow18OP", forKey: "key")
 //        coreDataService.deleteAllData()
         return true
     }
