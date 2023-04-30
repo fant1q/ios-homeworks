@@ -14,6 +14,7 @@ final class TabBarFactory {
         case first
         case second
         case third
+        case fourth
     }
     
     let navigationController: UINavigationController = UINavigationController()
@@ -41,6 +42,10 @@ final class TabBarFactory {
         case .third:
             let controller = FavoritesViewController(model: FavoritesModel())
             navigationController.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "heart"), selectedImage: UIImage(systemName: "heart.fill"))
+            navigationController.setViewControllers([controller], animated: true)
+        case .fourth:
+            let controller = MapViewController(model: MapModel())
+            navigationController.tabBarItem = UITabBarItem(title: "Map", image: UIImage(systemName: "map"), selectedImage: UIImage(systemName: "map.fill"))
             navigationController.setViewControllers([controller], animated: true)
             
         }

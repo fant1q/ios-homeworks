@@ -78,6 +78,9 @@
 		1DDFCC692843B64100FE101C /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDFCC682843B64100FE101C /* LogInViewController.swift */; };
 		1DEE567F2881A15300C64233 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DEE567E2881A15300C64233 /* Checker.swift */; };
 		1DEE56812881A9E200C64233 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DEE56802881A9E200C64233 /* LoginInspector.swift */; };
+		1DF1771129FEAB7B004B6D94 /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1771029FEAB7B004B6D94 /* MapModel.swift */; };
+		1DF1771329FEABB8004B6D94 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1771229FEABB8004B6D94 /* MapCoordinator.swift */; };
+		1DF1771529FEAC55004B6D94 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1771429FEAC55004B6D94 /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,6 +163,9 @@
 		1DDFCC682843B64100FE101C /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		1DEE567E2881A15300C64233 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		1DEE56802881A9E200C64233 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
+		1DF1771029FEAB7B004B6D94 /* MapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
+		1DF1771229FEABB8004B6D94 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
+		1DF1771429FEAC55004B6D94 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		B1D85ABBF37CDF1634CE5F96 /* Pods-Navigation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.debug.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.debug.xcconfig"; sourceTree = "<group>"; };
 		F3412635B4CFE872882E49FB /* Pods-Navigation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.release.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.release.xcconfig"; sourceTree = "<group>"; };
 		F38AF1CD0D768E8F49E266AE /* Pods_Navigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -226,6 +232,7 @@
 			children = (
 				1D360F542896E7FF00126F99 /* FeedModel.swift */,
 				1D67373C29CDA74400C9251B /* FavoritesModel.swift */,
+				1DF1771029FEAB7B004B6D94 /* MapModel.swift */,
 				1D60C98728A92D2B00EAA684 /* InfoModel.swift */,
 				1D60C98128A92C8700EAA684 /* PhotosModel.swift */,
 				1D60C98528A92D2000EAA684 /* PostModel.swift */,
@@ -269,6 +276,7 @@
 				1D1E2BEF28A3D6DB00985864 /* FeedCoordinator.swift */,
 				1D67373E29CDA81F00C9251B /* FavoritesCoordinator.swift */,
 				1D60C98A28A951A400EAA684 /* InfoCoordinator.swift */,
+				1DF1771229FEABB8004B6D94 /* MapCoordinator.swift */,
 				1D1E2BF528A3D72400985864 /* LoginCoordinator.swift */,
 				1D1E2BEB28A3D67C00985864 /* MainCoordinator.swift */,
 				1D1E2BF128A3D6F500985864 /* PhotosCoordinator.swift */,
@@ -344,6 +352,7 @@
 				1DCBF7E42808566C00712F54 /* InfoViewController.swift */,
 				1DDFCC682843B64100FE101C /* LogInViewController.swift */,
 				1D60C97D28A9181000EAA684 /* MainTabbarViewController.swift */,
+				1DF1771429FEAC55004B6D94 /* MapViewController.swift */,
 				1D67374029CDA86700C9251B /* FavoritesViewController.swift */,
 				1D37EA6D285CD5530087175B /* PhotosViewController.swift */,
 				1DCBF7DE28084A3100712F54 /* PostViewController.swift */,
@@ -573,6 +582,7 @@
 				1D1E2BF628A3D72400985864 /* LoginCoordinator.swift in Sources */,
 				1D60C98B28A951A400EAA684 /* InfoCoordinator.swift in Sources */,
 				1DCBF7D92808479300712F54 /* FeedViewController.swift in Sources */,
+				1DF1771329FEABB8004B6D94 /* MapCoordinator.swift in Sources */,
 				1D6AE2FC28C0F2E900DF95E5 /* Planet.swift in Sources */,
 				1D60C97E28A9181000EAA684 /* MainTabbarViewController.swift in Sources */,
 				1DCBF7DB280847AF00712F54 /* ProfileViewController.swift in Sources */,
@@ -589,6 +599,7 @@
 				1D1E2C0128A4008700985864 /* TabBarFactory.swift in Sources */,
 				1DDFCC692843B64100FE101C /* LogInViewController.swift in Sources */,
 				1D32CCA128AA868C00C8B77F /* BruteForce.swift in Sources */,
+				1DF1771529FEAC55004B6D94 /* MapViewController.swift in Sources */,
 				1D9DAB41281FEB140003E8AE /* ProfileHeaderView.swift in Sources */,
 				1D1E2BEC28A3D67C00985864 /* MainCoordinator.swift in Sources */,
 				1DACA06E28BCFF7E00BF180B /* NetworkServiceInfo.swift in Sources */,
@@ -597,6 +608,7 @@
 				1DCBF7E52808566C00712F54 /* InfoViewController.swift in Sources */,
 				1D360F522896D56000126F99 /* CustomButton.swift in Sources */,
 				1D1E2BF028A3D6DB00985864 /* FeedCoordinator.swift in Sources */,
+				1DF1771129FEAB7B004B6D94 /* MapModel.swift in Sources */,
 				1D37EA6E285CD5530087175B /* PhotosViewController.swift in Sources */,
 				1D0D3FC328490ABE00F25F64 /* PostTableViewCell.swift in Sources */,
 				1D9F5C5B29CB4E20001ED96D /* AuthorizationModel.swift in Sources */,

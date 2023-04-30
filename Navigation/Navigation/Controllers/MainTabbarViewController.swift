@@ -12,6 +12,7 @@ class MainTabBarViewController: UITabBarController {
     private let firstVC = TabBarFactory(flow: .first)
     private let secondVC = TabBarFactory(flow: .second)
     private let thirdVC = TabBarFactory(flow: .third)
+    private let fourthVC = TabBarFactory(flow: .fourth)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,8 @@ class MainTabBarViewController: UITabBarController {
         viewControllers = [
             firstVC.navigationController,
             secondVC.navigationController,
-            thirdVC.navigationController
+            thirdVC.navigationController,
+            fourthVC.navigationController
         ]
     }
 }
