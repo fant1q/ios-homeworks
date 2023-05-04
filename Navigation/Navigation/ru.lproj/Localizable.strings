@@ -1,0 +1,53 @@
+/* 
+  Localizable.strings
+  Navigation
+
+  Created by Денис Штоколов on 04.05.2023.
+  
+*/
+
+"password.name" = "Пароль";
+"favorites.name" = "Избранное";
+"feed.name" = "Лента";
+"map.name" = "Карта";
+"info.name" = "Инфо";
+"photoGallery.name" = "Галерея фото";
+"post.name" = "Пост";
+"profile.name" = "Профиль";
+"photos.cell" = "Фотографии";
+"views.cell: " = "Просмотры: ";
+"cyberCat.profile.name" = "Кибер Кот";
+"setStatus.status" = "Задать статус";
+"listening.to.music.status" = "Слушаю музыку...";
+"go.to.the.post.button" = "Перейти к посту";
+"check.password.button" = "Проверка";
+"enter.password.passField" = "Введите пароль";
+"true.checkLabel" = "Верно";
+"false.checkLabel" = "Неверно";
+"delete.post.button" = "Удалить пост";
+"are.you.sure?.alert.message" = "Вы уверены?";
+"yes.alert.action" = "Да";
+"no.alert.action" = "Нет";
+"enter.email.loginField" = "Введите почтовый адрес";
+"enter.password.passField" = "Введите пароль";
+"enter.login.button" = "Вход";
+"register.button" = "Регистрация";
+"time.remaining.to.refresh.timerLabel: " = "Время до обновления страницы: ";
+"standart.mapType" = "Стандарт";
+"satellite.mapType" = "Спутник";
+"hybrid.mapType" = "Гибрид";
+"delete.pins.map" = "Удалить точки";
+"add.route.map" = "Проложить маршрут";
+"waypoint.map" = "Точка";
+"enter.the.name.searchController" = "Введите имя";
+"delete.action" = "Удалить";
+"login.field.is.empty.error" = "Логин пуст";
+"please.enter.login.alert" = "Введите корректный логин";
+"pass.field.is.empty.error" = "Пароль пуст";
+"please.enter.pass.alert" = "Пожалуйста введите пароль";
+"wrong.login.or.password.error" = "Неверный логин или пароль";
+"please.enter.correct.login.or.password.alert" = "Пожалуйста введите действительный логин и пароль";
+"complete!.error" = "Готово!";
+"registration.done.alert" = "Регистрация прошла успешно";
+"error!.error" = "Ошибка!";
+"the.password.must.contain.at.least.6.characters.alert" = "Пароль должен содержать не менее 6 символов";

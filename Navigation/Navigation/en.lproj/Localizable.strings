@@ -1,0 +1,53 @@
+/* 
+  Localizable.strings
+  Navigation
+
+  Created by Денис Штоколов on 04.05.2023.
+  
+*/
+
+"password.name" = "Password";
+"favorites.name" = "Favorites";
+"feed.name" = "Feed";
+"map.name" = "Map";
+"info.name" = "Info";
+"photoGallery.name" = "Photo Gallery";
+"post.name" = "Post";
+"profile.name" = "Profile";
+"photos.cell" = "Photos";
+"views.cell: " = "Views: ";
+"cyberCat.profile.name" = "Cyber Cat";
+"setStatus.status" = "Set status";
+"listening.to.music.status" = "Listening to music...";
+"go.to.the.post.button" = "Go to the post";
+"check.password.button" = "Check password";
+"enter.password.passField" = "Enter password";
+"true.checkLabel" = "True";
+"false.checkLabel" = "False";
+"delete.post.button" = "Delete post";
+"are.you.sure?.alert.message" = "Are you sure?";
+"yes.alert.action" = "Yes";
+"no.alert.action" = "No";
+"enter.email.loginField" = "Enter email";
+"enter.password.passField" = "Enter password";
+"enter.login.button" = "Enter";
+"register.button" = "Registration";
+"time.remaining.to.refresh.timerLabel: " = "Time remaining to refresh: ";
+"standart.mapType" = "Standart";
+"satellite.mapType" = "Satellite";
+"hybrid.mapType" = "Hybrid";
+"delete.pins.map" = "Delete pins";
+"add.route.map" = "Add route";
+"waypoint.map" = "Waypoint";
+"enter.the.name.searchController" = "Enter the name";
+"delete.action" = "Delete";
+"login.field.is.empty.error" = "Login field is empty";
+"please.enter.login.alert" = "Please enter login";
+"pass.field.is.empty.error" = "Password field is empty";
+"please.enter.pass.alert" = "Please enter password";
+"wrong.login.or.password.error" = "Wrong login or password";
+"please.enter.correct.login.or.password.alert" = "Please enter correct login or password";
+"complete!.error" = "Complete!";
+"registration.done.alert" = "Registration done";
+"error!.error" = "Error!";
+"the.password.must.contain.at.least.6.characters.alert" = "The passsword must contain at least 6 characters";

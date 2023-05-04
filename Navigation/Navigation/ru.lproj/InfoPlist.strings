@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  Navigation
+
+  Created by Денис Штоколов on 04.05.2023.
+  
+*/
+
+NSLocationAlwaysAndWhenInUseUsageDescription = "Разрешить доступ к геолокации";
+NSLocationAlwaysUsageDescription = "Разрешить доступ к геолокации";
+NSLocationWhenInUseUsageDescription = "Разрешить доступ к геолокации";

@@ -15,7 +15,7 @@ class ProfileHeaderView: UIView {
     
     var name: UILabel = {
         let text = UILabel()
-        text.text = "Cyber Cat"
+        text.text = "cyberCat.profile.name".localized
         text.textColor = .black
         text.font = UIFont.boldSystemFont(ofSize: 18)
         text.translatesAutoresizingMaskIntoConstraints = false
@@ -32,7 +32,7 @@ class ProfileHeaderView: UIView {
         return image
     }()
     
-    let statusButton = CustomButton(title: "Set Status", backgroundColor: .systemBlue)
+    let statusButton = CustomButton(title: "setStatus.status".localized, backgroundColor: .systemBlue)
     
     let statusText: UILabel = {
         let label = UILabel()
@@ -45,7 +45,7 @@ class ProfileHeaderView: UIView {
     
     let statusField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Listening to music"
+        textField.placeholder = "listening.to.music.status".localized
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
         textField.leftViewMode = .always
         textField.backgroundColor = .white

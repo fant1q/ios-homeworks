@@ -90,8 +90,8 @@ class PostTableViewCell: UITableViewCell {
         carImageView.image = self.filterImage(UIImage(named: post.image)!)
         authorLabel.text = post.author
         descriptionLabel.text = post.description
-        likesLabel.text = "Likes: \(post.likes)"
-        viewsLabel.text = "Views: \(post.views)"
+        likesLabel.text = String(format: "likes.count".localized, post.likes)
+        viewsLabel.text = "views.cell: ".localized + "\(post.views)"
         heart.image = post.isLiked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
     }
     

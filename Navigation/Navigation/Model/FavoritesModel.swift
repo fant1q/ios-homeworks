@@ -10,6 +10,6 @@ import UIKit
 
 class FavoritesModel {
     
-    let title: String = "Favorites"
+    let title: String = "favorites.name".localized
     var color: UIColor = .systemBackground
 }

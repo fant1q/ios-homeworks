@@ -31,21 +31,21 @@ final class TabBarFactory {
         switch flow {
         case .first:
             let controller = LogInViewController()
-            navigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
+            navigationController.tabBarItem = UITabBarItem(title: "profile.name".localized, image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
             navigationController.delegate = LoginInspector() as? UINavigationControllerDelegate
             navigationController.setViewControllers([controller], animated: true)
         case .second:
             let viewModel = FeedModel()
             let controller = FeedViewController(model: viewModel)
-            navigationController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "info.bubble"), selectedImage: UIImage(systemName: "info.bubble.fill"))
+            navigationController.tabBarItem = UITabBarItem(title: "feed.name".localized, image: UIImage(systemName: "info.bubble"), selectedImage: UIImage(systemName: "info.bubble.fill"))
             navigationController.setViewControllers([controller], animated: true)
         case .third:
             let controller = FavoritesViewController(model: FavoritesModel())
-            navigationController.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "heart"), selectedImage: UIImage(systemName: "heart.fill"))
+            navigationController.tabBarItem = UITabBarItem(title: "favorites.name".localized, image: UIImage(systemName: "heart"), selectedImage: UIImage(systemName: "heart.fill"))
             navigationController.setViewControllers([controller], animated: true)
         case .fourth:
             let controller = MapViewController(model: MapModel())
-            navigationController.tabBarItem = UITabBarItem(title: "Map", image: UIImage(systemName: "map"), selectedImage: UIImage(systemName: "map.fill"))
+            navigationController.tabBarItem = UITabBarItem(title: "map.name".localized, image: UIImage(systemName: "map"), selectedImage: UIImage(systemName: "map.fill"))
             navigationController.setViewControllers([controller], animated: true)
             
         }

@@ -80,8 +80,8 @@ class FavoritesTableViewCell: UITableViewCell {
         carImageView.image = UIImage(named: post.image!)!
         authorLabel.text = post.author
         descriptionLabel.text = post.postDescription
-        likesLabel.text = "Likes: \(post.likes)"
-        viewsLabel.text = "Views: \(post.views)"
+        likesLabel.text = "likes.cell: \(post.likes)".localized
+        viewsLabel.text = "views.cell: \(post.views)".localized
         heart.image = post.isLiked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
         
     }

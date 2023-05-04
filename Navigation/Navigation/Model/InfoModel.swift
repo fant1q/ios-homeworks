@@ -10,6 +10,6 @@ import UIKit
 
 class InfoModel {
     
-    let title: String = "Info"
+    let title: String = "info.name".localized
     var color: UIColor = .systemBackground
 }

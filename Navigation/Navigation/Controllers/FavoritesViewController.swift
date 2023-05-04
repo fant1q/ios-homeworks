@@ -26,7 +26,7 @@ class FavoritesViewController: UIViewController {
     
     private lazy var searchController: UISearchController = {
         let view = UISearchController(searchResultsController: nil)
-        view.searchBar.searchTextField.placeholder = "Enter the name"
+        view.searchBar.searchTextField.placeholder = "enter.the.name.searchController".localized
         view.searchResultsUpdater = self
         return view
     }()
@@ -101,7 +101,7 @@ extension FavoritesViewController: UITableViewDataSource {
 extension FavoritesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (_, _, _) in
+        let action = UIContextualAction(style: .destructive, title: "delete.action".localized) { [weak self] (_, _, _) in
             guard let self = self else { return }
             let item = self.fecthedResultsController.object(at: indexPath)
             self.coreDataService.deleteFavPost(item)
