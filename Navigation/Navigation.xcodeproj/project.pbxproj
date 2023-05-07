@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		15198C71EC818163BDFF755D /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F38AF1CD0D768E8F49E266AE /* Pods_Navigation.framework */; };
+		1D05EECF2A081C95001F129C /* ExtensionUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D05EECE2A081C95001F129C /* ExtensionUIColor.swift */; };
 		1D0D3FC328490ABE00F25F64 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0D3FC228490ABE00F25F64 /* PostTableViewCell.swift */; };
 		1D1E2BEA28A3D66B00985864 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1E2BE928A3D66B00985864 /* Coordinator.swift */; };
 		1D1E2BEC28A3D67C00985864 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1E2BEB28A3D67C00985864 /* MainCoordinator.swift */; };
@@ -112,6 +113,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1D05EECE2A081C95001F129C /* ExtensionUIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIColor.swift; sourceTree = "<group>"; };
 		1D0D3FC228490ABE00F25F64 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		1D1E2BE928A3D66B00985864 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		1D1E2BEB28A3D67C00985864 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				1DCBF7CF2808390A00712F54 /* LaunchScreen.storyboard */,
 				1DCBF7D22808390A00712F54 /* Info.plist */,
 				1DCCB1C22A0439E60018CA97 /* ExtensionString.swift */,
+				1D05EECE2A081C95001F129C /* ExtensionUIColor.swift */,
 				1DCCB1C82A04507A0018CA97 /* Localizable.stringsdict */,
 				1DCCB1C02A0437EF0018CA97 /* Localizable.strings */,
 				1D8D93422A04331D004DD2F4 /* InfoPlist.strings */,
@@ -637,6 +640,7 @@
 				1DEE56812881A9E200C64233 /* LoginInspector.swift in Sources */,
 				1D67374729CDDE4000C9251B /* CoreDataService.swift in Sources */,
 				1D67373D29CDA74400C9251B /* FavoritesModel.swift in Sources */,
+				1D05EECF2A081C95001F129C /* ExtensionUIColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -882,6 +886,9 @@
 				DEVELOPMENT_TEAM = 3PHDNLY2RU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Разрешить доступ к геолокации";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Разрешить доступ к геолокации";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Разрешить доступ к геолокации";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -912,6 +919,9 @@
 				DEVELOPMENT_TEAM = 3PHDNLY2RU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Разрешить доступ к геолокации";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Разрешить доступ к геолокации";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Разрешить доступ к геолокации";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

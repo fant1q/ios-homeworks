@@ -11,7 +11,7 @@ class PhotosTableViewCell: UITableViewCell {
     
     private let content: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.createColor(lighMode: .white, darkMode: .black)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -21,7 +21,7 @@ class PhotosTableViewCell: UITableViewCell {
         label.text = "photos.cell".localized
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        label.textColor = .black
+        label.textColor = .label
         return label
     }()
     
@@ -29,8 +29,8 @@ class PhotosTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = .white
-        imageView.image = UIImage(systemName: "arrow.right")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        imageView.backgroundColor = UIColor.createColor(lighMode: .white, darkMode: .black)
+        imageView.image = UIImage(systemName: "arrow.right")?.withTintColor(UIColor.createColor(lighMode: .black, darkMode: .white), renderingMode: .alwaysOriginal)
         return imageView
     }()
     

@@ -16,7 +16,7 @@ class ProfileHeaderView: UIView {
     var name: UILabel = {
         let text = UILabel()
         text.text = "cyberCat.profile.name".localized
-        text.textColor = .black
+        text.textColor = .label
         text.font = UIFont.boldSystemFont(ofSize: 18)
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
@@ -37,7 +37,7 @@ class ProfileHeaderView: UIView {
     let statusText: UILabel = {
         let label = UILabel()
         label.text = "Waiting for something..."
-        label.textColor = .gray
+        label.textColor = .systemGray
         label.font = UIFont.systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -48,9 +48,9 @@ class ProfileHeaderView: UIView {
         textField.placeholder = "listening.to.music.status".localized
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
         textField.leftViewMode = .always
-        textField.backgroundColor = .white
+        textField.backgroundColor = .systemBackground
         textField.font = UIFont.systemFont(ofSize: 15)
-        textField.textColor = .black
+        textField.textColor = UIColor.createColor(lighMode: .black, darkMode: .white)
         textField.layer.cornerRadius = 12
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1

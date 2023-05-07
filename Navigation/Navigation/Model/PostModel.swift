@@ -11,5 +11,5 @@ import UIKit
 class PostModel {
     
     let title: String = "post.name".localized
-    var color: UIColor = .lightGray
+    var color: UIColor = .systemBackground
 }

@@ -28,7 +28,7 @@ class LogInViewController: UIViewController {
     
     private let contentView: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = .white
+        $0.backgroundColor = .systemBackground
         return $0
     }(UIView())
     
@@ -38,10 +38,10 @@ class LogInViewController: UIViewController {
         textField.keyboardType = .emailAddress
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
         textField.leftViewMode = .always
-        textField.backgroundColor = .systemGray6
+        textField.backgroundColor = UIColor.createColor(lighMode: .systemGray6, darkMode: .systemGray3)
         textField.font = UIFont.systemFont(ofSize: 16)
-        textField.textColor = .black
-        textField.tintColor = .black
+        textField.textColor = .label
+        textField.tintColor = .tintColor
         textField.autocapitalizationType = .none
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.borderWidth = 0.5
@@ -56,10 +56,10 @@ class LogInViewController: UIViewController {
         textField.placeholder = "enter.password.passField".localized
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
         textField.leftViewMode = .always
-        textField.backgroundColor = .systemGray6
+        textField.backgroundColor = UIColor.createColor(lighMode: .systemGray6, darkMode: .systemGray3)
         textField.font = UIFont.systemFont(ofSize: 16)
-        textField.textColor = .black
-        textField.tintColor = .black
+        textField.textColor = .label
+        textField.tintColor = .tintColor
         textField.autocapitalizationType = .none
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.borderWidth = 0.5
@@ -85,6 +85,7 @@ class LogInViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.layer.borderColor = UIColor.systemBackground.cgColor
         label.textColor = .systemBlue
+        label.backgroundColor = .systemBackground
         return label
     }()
     

@@ -14,7 +14,6 @@ class InfoViewController: UIViewController {
         button.setTitle("delete.post.button".localized, for: .normal)
         button.backgroundColor = .systemRed
         button.layer.cornerRadius = 15
-        //        button.frame = CGRect(x: 140, y: 200, width: 150, height: 70)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
@@ -38,14 +37,12 @@ class InfoViewController: UIViewController {
     
     private let requestLabel: UILabel = {
         let label = UILabel()
-        //        label.frame = CGRect(x: 40, y: 300, width: 500, height: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let planetLabel: UILabel = {
         let label = UILabel()
-        //        label.frame = CGRect(x: 40, y: 400, width: 500, height: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         return label
