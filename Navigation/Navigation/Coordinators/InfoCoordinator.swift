@@ -15,7 +15,7 @@ class InfoCoordinator: Coordinator {
     func start() {
         let infoViewController = ViewControllerFactory.makeViewController(.info)
         let navigation = UINavigationController(rootViewController: infoViewController())
-        infoViewController().title = "Info"
+        infoViewController().title = "info.name".localized
         navigation.present(infoViewController(), animated: true)
     }
     

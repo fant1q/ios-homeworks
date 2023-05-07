@@ -20,16 +20,16 @@ class FeedViewController: UIViewController {
         return stackView
     }()
     
-    private let pushButton = CustomButton(title: "Go to the post", backgroundColor: .red)
+    private let pushButton = CustomButton(title: "go.to.the.post.button".localized, backgroundColor: .red)
     
-    private let pushButton2 = CustomButton(title: "Go to the post", backgroundColor: .green)
+    private let pushButton2 = CustomButton(title: "go.to.the.post.button".localized, backgroundColor: .green)
     
-    private let checkButton = CustomButton(title: "Check password", backgroundColor: .systemBlue)
+    private let checkButton = CustomButton(title: "check.password.button".localized, backgroundColor: .systemBlue)
     
     private let passField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Enter password"
+        textField.placeholder = "enter.password.passField".localized
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
         textField.leftViewMode = .always
         textField.backgroundColor = .systemGray6
@@ -80,10 +80,10 @@ class FeedViewController: UIViewController {
         checkButton.tapAction = { [weak self] in
             let pass = self!.passField.text ?? ""
             if FeedModel().check(word: pass) == true {
-                self!.checkLabel.text = "Верно"
+                self!.checkLabel.text = "true.checkLabel".localized
                 self!.checkLabel.backgroundColor = .systemGreen
             } else {
-                self!.checkLabel.text = "Неверно"
+                self!.checkLabel.text = "false.checkLabel".localized
                 self!.checkLabel.backgroundColor = .systemRed
             }
         }

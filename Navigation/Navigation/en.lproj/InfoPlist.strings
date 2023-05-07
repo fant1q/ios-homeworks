@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  Navigation
+
+  Created by Денис Штоколов on 04.05.2023.
+  
+*/
+
+NSLocationAlwaysAndWhenInUseUsageDescription = "Allow access to geolocation";
+NSLocationAlwaysUsageDescription = "Allow access to geolocation";
+NSLocationWhenInUseUsageDescription = "Allow access to geolocation";

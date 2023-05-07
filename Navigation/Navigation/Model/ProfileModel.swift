@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileModel {
     
-    let title: String = "Profile"
+    let title: String = "profile.name".localized
     var userService: UserService
     var name: String
     

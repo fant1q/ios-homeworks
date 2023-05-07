@@ -23,11 +23,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return mapView
     }()
     
-    private let standartMap = CustomButton(title: "Стандарт", backgroundColor: .systemGray)
-    private let satelliteMap = CustomButton(title: "Спутник", backgroundColor: .systemGray)
-    private let hybridMap = CustomButton(title: "Гибрид", backgroundColor: .systemGray)
-    private let deletePins = CustomButton(title: "Убрать метки", backgroundColor: .systemGray)
-    private let addRoute = CustomButton(title: "Проложить маршрут", backgroundColor: .systemGray)
+    private let standartMap = CustomButton(title: "standart.mapType".localized, backgroundColor: .systemGray)
+    private let satelliteMap = CustomButton(title: "satellite.mapType".localized, backgroundColor: .systemGray)
+    private let hybridMap = CustomButton(title: "hybrid.mapType".localized, backgroundColor: .systemGray)
+    private let deletePins = CustomButton(title: "delete.pins.map".localized, backgroundColor: .systemGray)
+    private let addRoute = CustomButton(title: "add.route.map".localized, backgroundColor: .systemGray)
     private lazy var myAnnotations = [MKPointAnnotation]()
     private lazy var myWaypoints = [CLLocation]()
     private lazy var pointOfDestination = CLLocationCoordinate2D()
@@ -127,7 +127,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         let wayAnnotation = MKPointAnnotation()
         wayAnnotation.coordinate = wayCoords
-        wayAnnotation.title = "waypoint"
+        wayAnnotation.title = "waypoint.map".localized
         myAnnotations.append(wayAnnotation)
         mapView.addAnnotation(wayAnnotation)
         print(myAnnotations)

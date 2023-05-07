@@ -10,6 +10,6 @@ import UIKit
 
 class MapModel {
     
-    let title: String = "Map"
+    let title: String = "map.name".localized
     var color: UIColor = .systemBackground
 }

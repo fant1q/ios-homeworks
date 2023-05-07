@@ -10,6 +10,6 @@ import UIKit
 
 class PhotosModel {
     
-    let title: String = "Photo Gallery"
+    let title: String = "photoGallery.name".localized
     var color: UIColor = .systemBackground
 }

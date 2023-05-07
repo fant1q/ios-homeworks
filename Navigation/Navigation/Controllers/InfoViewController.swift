@@ -11,7 +11,7 @@ class InfoViewController: UIViewController {
     
     private lazy var deleteButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Delete Post", for: .normal)
+        button.setTitle("delete.post.button".localized, for: .normal)
         button.backgroundColor = .systemRed
         button.layer.cornerRadius = 15
         //        button.frame = CGRect(x: 140, y: 200, width: 150, height: 70)
@@ -24,11 +24,11 @@ class InfoViewController: UIViewController {
     }()
     
     let alertUI: UIAlertController = {
-        let alert = UIAlertController(title: "Delete Post", message: "Are you sure?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Yes", comment: "Default action"), style: .default, handler: { _ in
+        let alert = UIAlertController(title: "delete.post.button".localized, message: "are.you.sure?.alert.message".localized, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("yes.alert.action".localized, comment: "Default action"), style: .default, handler: { _ in
             NSLog("Post has been deleted")
         }))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("No", comment: "Default action"), style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("no.alert.action".localized, comment: "Default action"), style: .default, handler: { _ in
             NSLog("Deletion cancelled")
         }))
         

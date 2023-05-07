@@ -34,7 +34,7 @@ class LogInViewController: UIViewController {
     
     lazy var loginField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Введите email"
+        textField.placeholder = "enter.email.loginField".localized
         textField.keyboardType = .emailAddress
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
         textField.leftViewMode = .always
@@ -53,7 +53,7 @@ class LogInViewController: UIViewController {
     
     private lazy var passField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Введите пароль"
+        textField.placeholder = "enter.password.passField".localized
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
         textField.leftViewMode = .always
         textField.backgroundColor = .systemGray6
@@ -76,8 +76,8 @@ class LogInViewController: UIViewController {
         return imageView
     }()
     
-    private let loginButton = CustomButton(title: "Вход", backgroundColor: .systemBackground)
-    private let signUpButton = CustomButton(title: "Регистрация", backgroundColor: .systemIndigo)
+    private let loginButton = CustomButton(title: "enter.login.button".localized, backgroundColor: .systemBackground)
+    private let signUpButton = CustomButton(title: "register.button".localized, backgroundColor: .systemIndigo)
     private var counter = 31
     
     private let timerLabel: UILabel = {
@@ -260,7 +260,7 @@ class LogInViewController: UIViewController {
             if self.counter != 0 {
                 self.counter -= 1
                 if self.counter < 31 {
-                    self.timerLabel.text = "Time remaining to refresh: \(self.counter)"
+                    self.timerLabel.text = "time.remaining.to.refresh.timerLabel: ".localized + "\(self.counter)"
                 }
             } else {
                 self.loginField.text = ""
