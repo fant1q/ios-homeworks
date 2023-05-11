@@ -12,7 +12,7 @@ class FeedViewController: UIViewController {
     private var buttonStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.backgroundColor = .systemGray
+        stackView.backgroundColor = UIColor.createColor(lighMode: .systemGray3, darkMode: .systemGray6)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.alignment = .center
         stackView.distribution = .fillEqually
@@ -20,9 +20,9 @@ class FeedViewController: UIViewController {
         return stackView
     }()
     
-    private let pushButton = CustomButton(title: "go.to.the.post.button".localized, backgroundColor: .red)
+    private let pushButton = CustomButton(title: "go.to.the.post.button".localized, backgroundColor: .systemRed)
     
-    private let pushButton2 = CustomButton(title: "go.to.the.post.button".localized, backgroundColor: .green)
+    private let pushButton2 = CustomButton(title: "go.to.the.post.button".localized, backgroundColor: .systemGreen)
     
     private let checkButton = CustomButton(title: "check.password.button".localized, backgroundColor: .systemBlue)
     
@@ -34,7 +34,7 @@ class FeedViewController: UIViewController {
         textField.leftViewMode = .always
         textField.backgroundColor = .systemGray6
         textField.font = UIFont.systemFont(ofSize: 16)
-        textField.textColor = .black
+        textField.textColor = .label
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.borderWidth = 0.5
         return textField
