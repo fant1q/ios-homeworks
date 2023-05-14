@@ -69,6 +69,7 @@
 		1DA0C44328AD386D00FC68A4 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA0C44228AD386D00FC68A4 /* ApiError.swift */; };
 		1DA1BD7E2850D3CE0083727C /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA1BD7D2850D3CE0083727C /* PhotosTableViewCell.swift */; };
 		1DACA06E28BCFF7E00BF180B /* NetworkServiceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DACA06D28BCFF7E00BF180B /* NetworkServiceInfo.swift */; };
+		1DAF4AD12A11375400B83BCB /* LocalNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAF4AD02A11375400B83BCB /* LocalNotificationsService.swift */; };
 		1DB18DE6287E056A001285DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB18DE5287E056A001285DC /* User.swift */; };
 		1DCBF7C52808390900712F54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCBF7C42808390900712F54 /* AppDelegate.swift */; };
 		1DCBF7CE2808390A00712F54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DCBF7CD2808390A00712F54 /* Assets.xcassets */; };
@@ -158,6 +159,7 @@
 		1DA0C44228AD386D00FC68A4 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		1DA1BD7D2850D3CE0083727C /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		1DACA06D28BCFF7E00BF180B /* NetworkServiceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceInfo.swift; sourceTree = "<group>"; };
+		1DAF4AD02A11375400B83BCB /* LocalNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationsService.swift; sourceTree = "<group>"; };
 		1DB18DE5287E056A001285DC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1DCBF7C12808390900712F54 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DCBF7C42808390900712F54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 				1DCBF7CF2808390A00712F54 /* LaunchScreen.storyboard */,
 				1DCBF7D22808390A00712F54 /* Info.plist */,
 				1DCCB1C22A0439E60018CA97 /* ExtensionString.swift */,
+				1DAF4AD02A11375400B83BCB /* LocalNotificationsService.swift */,
 				1D05EECE2A081C95001F129C /* ExtensionUIColor.swift */,
 				1DCCB1C82A04507A0018CA97 /* Localizable.stringsdict */,
 				1DCCB1C02A0437EF0018CA97 /* Localizable.strings */,
@@ -602,6 +605,7 @@
 				1D60C98828A92D2B00EAA684 /* InfoModel.swift in Sources */,
 				1DEE567F2881A15300C64233 /* Checker.swift in Sources */,
 				1DCBF7DF28084A3100712F54 /* PostViewController.swift in Sources */,
+				1DAF4AD12A11375400B83BCB /* LocalNotificationsService.swift in Sources */,
 				1D1E2BF628A3D72400985864 /* LoginCoordinator.swift in Sources */,
 				1D60C98B28A951A400EAA684 /* InfoCoordinator.swift in Sources */,
 				1DCBF7D92808479300712F54 /* FeedViewController.swift in Sources */,

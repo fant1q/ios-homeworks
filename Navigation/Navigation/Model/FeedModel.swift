@@ -9,7 +9,7 @@ import Foundation
 
 class FeedModel {
     
-    private let password = "password.name".localized
+    private let password = "1234"
     
     func check(word: String) -> Bool {
         if word == password { return true
