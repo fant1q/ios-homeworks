@@ -35,6 +35,7 @@
 		1D60C98628A92D2000EAA684 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D60C98528A92D2000EAA684 /* PostModel.swift */; };
 		1D60C98828A92D2B00EAA684 /* InfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D60C98728A92D2B00EAA684 /* InfoModel.swift */; };
 		1D60C98B28A951A400EAA684 /* InfoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D60C98A28A951A400EAA684 /* InfoCoordinator.swift */; };
+		1D64865D2A16ABAC00EBEE05 /* LocalAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D64865C2A16ABAC00EBEE05 /* LocalAuthorizationService.swift */; };
 		1D67373D29CDA74400C9251B /* FavoritesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D67373C29CDA74400C9251B /* FavoritesModel.swift */; };
 		1D67373F29CDA81F00C9251B /* FavoritesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D67373E29CDA81F00C9251B /* FavoritesCoordinator.swift */; };
 		1D67374129CDA86700C9251B /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D67374029CDA86700C9251B /* FavoritesViewController.swift */; };
@@ -139,6 +140,7 @@
 		1D60C98528A92D2000EAA684 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		1D60C98728A92D2B00EAA684 /* InfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModel.swift; sourceTree = "<group>"; };
 		1D60C98A28A951A400EAA684 /* InfoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCoordinator.swift; sourceTree = "<group>"; };
+		1D64865C2A16ABAC00EBEE05 /* LocalAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthorizationService.swift; sourceTree = "<group>"; };
 		1D67373C29CDA74400C9251B /* FavoritesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesModel.swift; sourceTree = "<group>"; };
 		1D67373E29CDA81F00C9251B /* FavoritesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCoordinator.swift; sourceTree = "<group>"; };
 		1D67374029CDA86700C9251B /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 				1DCBF7D22808390A00712F54 /* Info.plist */,
 				1DCCB1C22A0439E60018CA97 /* ExtensionString.swift */,
 				1DAF4AD02A11375400B83BCB /* LocalNotificationsService.swift */,
+				1D64865C2A16ABAC00EBEE05 /* LocalAuthorizationService.swift */,
 				1D05EECE2A081C95001F129C /* ExtensionUIColor.swift */,
 				1DCCB1C82A04507A0018CA97 /* Localizable.stringsdict */,
 				1DCCB1C02A0437EF0018CA97 /* Localizable.strings */,
@@ -601,6 +604,7 @@
 				1D1E2BF428A3D71400985864 /* PostCoordinator.swift in Sources */,
 				1D67374129CDA86700C9251B /* FavoritesViewController.swift in Sources */,
 				1D1E2BF228A3D6F500985864 /* PhotosCoordinator.swift in Sources */,
+				1D64865D2A16ABAC00EBEE05 /* LocalAuthorizationService.swift in Sources */,
 				1D360F552896E7FF00126F99 /* FeedModel.swift in Sources */,
 				1D60C98828A92D2B00EAA684 /* InfoModel.swift in Sources */,
 				1DEE567F2881A15300C64233 /* Checker.swift in Sources */,
@@ -890,6 +894,7 @@
 				DEVELOPMENT_TEAM = 3PHDNLY2RU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Разрешите доступ к биометрии";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Разрешить доступ к геолокации";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Разрешить доступ к геолокации";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Разрешить доступ к геолокации";
@@ -923,6 +928,7 @@
 				DEVELOPMENT_TEAM = 3PHDNLY2RU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Разрешите доступ к биометрии";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Разрешить доступ к геолокации";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Разрешить доступ к геолокации";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Разрешить доступ к геолокации";
