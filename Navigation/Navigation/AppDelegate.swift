@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
         FirebaseApp.configure()
         NetworkService.request(for: appConfiguration!)
+        LocalNotificationsService().registeForLatestUpdatesIfPossible()
+        LocalNotificationsService().scheduleNotification()
 //        coreDataService.deleteAllData()
         return true
     }
