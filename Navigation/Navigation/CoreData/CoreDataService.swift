@@ -84,7 +84,6 @@ final class CoreDataService {
     func deleteAllData() {
         let storeContainer =
         persistentContainer.persistentStoreCoordinator
-        
         for store in storeContainer.persistentStores {
             do {
                 try storeContainer.destroyPersistentStore(
