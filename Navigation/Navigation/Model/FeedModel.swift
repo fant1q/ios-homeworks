@@ -6,13 +6,10 @@
 //
 
 import Foundation
+import UIKit
 
 class FeedModel {
     
-    private let password = "1234"
-    
-    func check(word: String) -> Bool {
-        if word == password { return true
-        } else { return false }
-    }
+    let title: String = "feed.name".localized
+    var color: UIColor = .systemBackground
 }

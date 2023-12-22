@@ -16,6 +16,7 @@ enum ViewControllerFactory {
     case info
     case favorites
     case map
+    case createPost
     
     func makeViewController() -> UIViewController {
         switch self {
@@ -31,6 +32,8 @@ enum ViewControllerFactory {
             return FavoritesViewController(model: FavoritesModel())
         case .map:
             return MapViewController(model: MapModel())
+        case .createPost:
+            return CreatePostViewController(model: CreatePostModel())
         }
     }
 }

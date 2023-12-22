@@ -12,7 +12,6 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    let appConfiguration = AppConfiguration.allCases.randomElement()
     let coreDataService = CoreDataService.shared
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -22,10 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = mainCoordinator.startApplication()
         self.window?.makeKeyAndVisible()
         FirebaseApp.configure()
-        NetworkService.request(for: appConfiguration!)
         LocalNotificationsService().registeForLatestUpdatesIfPossible()
         LocalNotificationsService().scheduleNotification()
-//        coreDataService.deleteAllData()
+        //        coreDataService.deleteAllData()
         return true
     }
     

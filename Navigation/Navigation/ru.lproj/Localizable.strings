@@ -51,3 +51,4 @@
 "registration.done.alert" = "Регистрация прошла успешно";
 "error!.error" = "Ошибка!";
 "the.password.must.contain.at.least.6.characters.alert" = "Пароль должен содержать не менее 6 символов";
+"create.post" = "Новый пост";

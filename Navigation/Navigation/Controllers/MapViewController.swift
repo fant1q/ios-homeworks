@@ -23,11 +23,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return mapView
     }()
     
-    private let standartMap = CustomButton(title: "standart.mapType".localized, backgroundColor: UIColor.createColor(lighMode: .systemGray2, darkMode: .systemGray3))
-    private let satelliteMap = CustomButton(title: "satellite.mapType".localized, backgroundColor: UIColor.createColor(lighMode: .systemGray2, darkMode: .systemGray3))
-    private let hybridMap = CustomButton(title: "hybrid.mapType".localized, backgroundColor: UIColor.createColor(lighMode: .systemGray2, darkMode: .systemGray3))
-    private let deletePins = CustomButton(title: "delete.pins.map".localized, backgroundColor: UIColor.createColor(lighMode: .systemGray2, darkMode: .systemGray3))
-    private let addRoute = CustomButton(title: "add.route.map".localized, backgroundColor: UIColor.createColor(lighMode: .systemGray2, darkMode: .systemGray3))
+    private let standartMap = CustomButton(title: "standart.mapType".localized, backgroundColor: UIColor.createColor(lightMode: .systemGray2, darkMode: .systemGray3))
+    private let satelliteMap = CustomButton(title: "satellite.mapType".localized, backgroundColor: UIColor.createColor(lightMode: .systemGray2, darkMode: .systemGray3))
+    private let hybridMap = CustomButton(title: "hybrid.mapType".localized, backgroundColor: UIColor.createColor(lightMode: .systemGray2, darkMode: .systemGray3))
+    private let deletePins = CustomButton(title: "delete.pins.map".localized, backgroundColor: UIColor.createColor(lightMode: .systemGray2, darkMode: .systemGray3))
+    private let addRoute = CustomButton(title: "add.route.map".localized, backgroundColor: UIColor.createColor(lightMode: .systemGray2, darkMode: .systemGray3))
     private lazy var myAnnotations = [MKPointAnnotation]()
     private lazy var myWaypoints = [CLLocation]()
     private lazy var pointOfDestination = CLLocationCoordinate2D()

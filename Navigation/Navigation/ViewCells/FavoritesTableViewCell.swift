@@ -11,7 +11,7 @@ class FavoritesTableViewCell: UITableViewCell {
     
     private let content: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.createColor(lighMode: .white, darkMode: .black)
+        view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -30,7 +30,7 @@ class FavoritesTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = UIColor.createColor(lighMode: .black, darkMode: .systemGray6)
+        imageView.backgroundColor = UIColor.createColor(lightMode: .black, darkMode: .systemGray6)
         return imageView
     }()
     
@@ -81,8 +81,8 @@ class FavoritesTableViewCell: UITableViewCell {
         carImageView.image = UIImage(named: post.image!)!
         authorLabel.text = post.author
         descriptionLabel.text = post.postDescription
-        likesLabel.text = "likes.cell: \(post.likes)".localized
-        viewsLabel.text = "views.cell: \(post.views)".localized
+        likesLabel.text = String(format: "likes.count".localized, post.likes)
+        viewsLabel.text = "views.cell: ".localized + "\(post.views)"
         heart.image = post.isLiked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
         
     }

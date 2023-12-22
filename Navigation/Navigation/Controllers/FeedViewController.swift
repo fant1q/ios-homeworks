@@ -6,44 +6,20 @@
 //
 
 import UIKit
+import Storage_Service
 
 class FeedViewController: UIViewController {
     
-    private var buttonStack: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.backgroundColor = UIColor.createColor(lighMode: .systemGray3, darkMode: .systemGray6)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.alignment = .center
-        stackView.distribution = .fillEqually
-        stackView.spacing = 10
-        return stackView
-    }()
+    private lazy var dataItems: [Post] = posts
+    let coreDataService = CoreDataService.shared
     
-    private let pushButton = CustomButton(title: "go.to.the.post.button".localized, backgroundColor: .systemRed)
-    
-    private let pushButton2 = CustomButton(title: "go.to.the.post.button".localized, backgroundColor: .systemGreen)
-    
-    private let checkButton = CustomButton(title: "check.password.button".localized, backgroundColor: .systemBlue)
-    
-    private let passField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "enter.password.passField".localized
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
-        textField.leftViewMode = .always
-        textField.backgroundColor = .systemGray6
-        textField.font = UIFont.systemFont(ofSize: 16)
-        textField.textColor = .label
-        textField.layer.borderColor = UIColor.lightGray.cgColor
-        textField.layer.borderWidth = 0.5
-        return textField
-    }()
-    
-    private let checkLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.dataSource = self
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "postCell")
+        tableView.sectionHeaderTopPadding = 0
+        return tableView
     }()
     
     var model: FeedModel
@@ -52,6 +28,9 @@ class FeedViewController: UIViewController {
     init(model: FeedModel) {
         self.model = model
         super.init(nibName: nil, bundle: nil)
+        
+        self.navigationItem.title = model.title
+        view.backgroundColor = model.color
     }
     
     required init?(coder: NSCoder) {
@@ -66,52 +45,51 @@ class FeedViewController: UIViewController {
     private func layout() {
         
         self.view.backgroundColor = .systemBackground
-        buttonStack.addArrangedSubview(pushButton)
-        buttonStack.addArrangedSubview(pushButton2)
-        
-        [buttonStack, checkButton, passField, checkLabel].forEach { view.addSubview($0) }
-        
-        pushButton.tapAction = { [weak self] in
-            self!.coordinator = FeedCoordinator(navigation: self?.navigationController ?? UINavigationController())
-            self!.coordinator?.postTransition()
-        }
-        pushButton2.tapAction = pushButton.tapAction
-        
-        checkButton.tapAction = { [weak self] in
-            let pass = self!.passField.text ?? ""
-            if FeedModel().check(word: pass) == true {
-                self!.checkLabel.text = "true.checkLabel".localized
-                self!.checkLabel.backgroundColor = .systemGreen
-            } else {
-                self!.checkLabel.text = "false.checkLabel".localized
-                self!.checkLabel.backgroundColor = .systemRed
-            }
-        }
+        view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
-            buttonStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            buttonStack.widthAnchor.constraint(equalToConstant: 150),
-            buttonStack.heightAnchor.constraint(equalToConstant: 150),
-            
-            passField.topAnchor.constraint(equalTo: buttonStack.bottomAnchor, constant: 20),
-            passField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
-            passField.heightAnchor.constraint(equalToConstant: 35),
-            passField.widthAnchor.constraint(equalToConstant: 150),
-            
-            checkButton.topAnchor.constraint(equalTo: buttonStack.bottomAnchor, constant: 20),
-            checkButton.leadingAnchor.constraint(equalTo: passField.trailingAnchor, constant: 20),
-            checkButton.widthAnchor.constraint(equalToConstant: 150),
-            
-            checkLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            checkLabel.topAnchor.constraint(equalTo: passField.bottomAnchor, constant: 20)
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+    }
+    
+    private func savePostToFavorites(index: IndexPath.Index) {
+        if dataItems[index].isLiked {
+            var unlikedPost = dataItems[index]
+            unlikedPost.isLiked = false
+            unlikedPost.likes -= 1
+            dataItems[index] = unlikedPost
+            tableView.reloadData()
+            coreDataService.deletePost(dataItems[index])
+        } else {
+            var likedPost = dataItems[index]
+            likedPost.isLiked = true
+            likedPost.likes += 1
+            dataItems[index] = likedPost
+            tableView.reloadData()
+            coreDataService.addPost(dataItems[index])
+        }
     }
 }
 
-extension FeedViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        view.endEditing(true)
-        return true
+extension FeedViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let postCell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! PostTableViewCell
+        postCell.setupCell(post: posts[indexPath.row])
+        postCell.tapHandler = { [weak self] in self?.savePostToFavorites(index: indexPath.row) }
+        
+        return postCell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return posts.count
     }
 }

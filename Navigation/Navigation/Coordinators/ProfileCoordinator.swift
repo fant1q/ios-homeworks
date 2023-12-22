@@ -29,4 +29,8 @@ class ProfileCoordinator: Coordinator {
         let vc = PhotosCoordinator(navigation: navigation)
         vc.start()
     }
+    func createPostTransition() {
+        let vc = CreatePostCoordinator(navigation: navigation)
+        vc.start()
+    }
 }

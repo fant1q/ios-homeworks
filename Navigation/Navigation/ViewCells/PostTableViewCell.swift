@@ -7,7 +7,6 @@
 
 import UIKit
 import Storage_Service
-import iOSIntPackage
 
 class PostTableViewCell: UITableViewCell {
     
@@ -21,7 +20,7 @@ class PostTableViewCell: UITableViewCell {
     
     private let content: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.createColor(lighMode: .white, darkMode: .black)
+        view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -40,7 +39,7 @@ class PostTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = UIColor.createColor(lighMode: .black, darkMode: .systemGray6)
+        imageView.backgroundColor = UIColor.createColor(lightMode: .black, darkMode: .systemGray6)
         return imageView
     }()
     
@@ -88,23 +87,12 @@ class PostTableViewCell: UITableViewCell {
     }
     
     func setupCell(post: Post) {
-        carImageView.image = self.filterImage(UIImage(named: post.image)!)
+        carImageView.image = UIImage(named: post.image)!
         authorLabel.text = post.author
         descriptionLabel.text = post.description
         likesLabel.text = String(format: "likes.count".localized, post.likes)
         viewsLabel.text = "views.cell: ".localized + "\(post.views)"
         heart.image = post.isLiked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
-    }
-    
-    
-    public func filterImage(_ sourceImage: UIImage) -> UIImage {
-        let imageProcessor = ImageProcessor()
-        var image = UIImage()
-        imageProcessor.processImage(sourceImage: sourceImage, filter: .noir, completion: { filtredImage in
-            image = filtredImage!
-            print("filter applyed")
-        })
-        return image
     }
     
     private func layuot() {

@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import Storage_Service
 
 class FavoritesViewController: UIViewController {
     
@@ -104,7 +105,7 @@ extension FavoritesViewController: UITableViewDelegate {
         let action = UIContextualAction(style: .destructive, title: "delete.action".localized) { [weak self] (_, _, _) in
             guard let self = self else { return }
             let item = self.fecthedResultsController.object(at: indexPath)
-            self.coreDataService.deleteFavPost(item)
+            coreDataService.deleteFavPost(item)
             tableView.reloadData()
         }
         return .init(actions: [action])

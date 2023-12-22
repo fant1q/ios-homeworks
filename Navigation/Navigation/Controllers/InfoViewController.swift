@@ -41,17 +41,6 @@ class InfoViewController: UIViewController {
         return label
     }()
     
-    private let planetLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    private let networkService: NetworkServiceInfoProtocol = NetworkServiceInfo()
-    
-    private var orbitalPeriod: String?
-    
     var model: InfoModel
     
     init(model: InfoModel) {
@@ -71,12 +60,10 @@ class InfoViewController: UIViewController {
         super.viewDidLoad()
         
         layout()
-        fetchData()
-        fetchDataWithDecoder()
     }
     
     private func layout() {
-        [deleteButton, requestLabel, planetLabel].forEach { view.addSubview($0) }
+        [deleteButton, requestLabel].forEach { view.addSubview($0) }
         view.backgroundColor = .systemBackground
         
         NSLayoutConstraint.activate([
@@ -86,55 +73,7 @@ class InfoViewController: UIViewController {
             
             requestLabel.topAnchor.constraint(equalTo: deleteButton.bottomAnchor, constant: 40),
             requestLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            planetLabel.topAnchor.constraint(equalTo: requestLabel.bottomAnchor, constant: 40),
-            planetLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            planetLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            planetLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20)
-            
-            
         ])
-    }
-    
-    private func fetchData() {
-        guard let url = URL(string: "https://jsonplaceholder.typicode.com/todos/7") else { return }
-        self .networkService.request(url: url) { [weak self] result in
-            switch result {
-            case .success(let data):
-                print("🫐", String(data: data, encoding: .utf8) as Any)
-                do {
-                    let object = try JSONSerialization.jsonObject(with: data, options: [])
-                    print("🍓", object)
-                    
-                    if let dictionary = object as? [String: Any] {
-                        guard let textLabel = dictionary["title"] else { return }
-                        self?.requestLabel.text = textLabel as? String
-                    }
-                } catch let error {
-                    print("🍊", error)
-                }
-            case .failure(let error):
-                print("🍊", error)
-            }
-        }
-    }
-    
-    private func fetchDataWithDecoder() {
-        guard let url = URL(string: "https://swapi.dev/api/planets/1") else { return }
-        self.networkService.request(url: url) { [weak self] result in
-            switch result {
-            case .success(let data):
-                do {
-                    let planet = try JSONDecoder().decode(Planet.self, from: data)
-                    print("🍆", dump(planet))
-                    self?.planetLabel.text = "The period of the planet Tatooine's orbit around its star: \(planet.orbital_period)"
-                } catch let error {
-                    print("🍊", error)
-                }
-            case .failure(let error):
-                print("🍊", error)
-            }
-        }
     }
     
     @objc

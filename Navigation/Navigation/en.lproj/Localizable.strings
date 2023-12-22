@@ -51,3 +51,4 @@
 "registration.done.alert" = "Registration done";
 "error!.error" = "Error!";
 "the.password.must.contain.at.least.6.characters.alert" = "The passsword must contain at least 6 characters";
+"create.post" = "Create Post";

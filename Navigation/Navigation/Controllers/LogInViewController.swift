@@ -7,7 +7,6 @@
 
 import UIKit
 import FirebaseAuth
-import RealmSwift
 
 class LogInViewController: UIViewController {
     
@@ -16,9 +15,6 @@ class LogInViewController: UIViewController {
     private var handle: AuthStateDidChangeListenerHandle?
     var coordinator: LoginCoordinator?
     var myTimer: Timer?
-    private var encryptionConfig:  Realm.Configuration  {
-        Realm.Configuration(encryptionKey: getKey())
-    }
     private let localAuthService = LocalAuthorizationService()
     
     private let scrollView: UIScrollView = {
@@ -39,7 +35,7 @@ class LogInViewController: UIViewController {
         textField.keyboardType = .emailAddress
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
         textField.leftViewMode = .always
-        textField.backgroundColor = UIColor.createColor(lighMode: .systemGray6, darkMode: .systemGray3)
+        textField.backgroundColor = UIColor.createColor(lightMode: .systemGray6, darkMode: .systemGray3)
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.textColor = .label
         textField.tintColor = .tintColor
@@ -57,7 +53,7 @@ class LogInViewController: UIViewController {
         textField.placeholder = "enter.password.passField".localized
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
         textField.leftViewMode = .always
-        textField.backgroundColor = UIColor.createColor(lighMode: .systemGray6, darkMode: .systemGray3)
+        textField.backgroundColor = UIColor.createColor(lightMode: .systemGray6, darkMode: .systemGray3)
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.textColor = .label
         textField.tintColor = .tintColor
@@ -105,18 +101,6 @@ class LogInViewController: UIViewController {
         nc.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         nc.addObserver(self, selector: #selector(kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         handle = Auth.auth().addStateDidChangeListener { auth, user in }
-        
-        let userService = CurrentUserService()
-        let realm = try? Realm()
-        guard let users = realm?.objects(RealmUser.self) else { return }
-        let user = users.where {
-            $0.login == UserDefaults.standard.string(forKey: "login") ?? ""
-        }
-        
-        if user.isEmpty == false && user[0].isAuth == true {
-            self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
-            self.coordinator?.profileTransition(name: user[0].login, userService: userService)
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -138,43 +122,6 @@ class LogInViewController: UIViewController {
         scrollView.verticalScrollIndicatorInsets = .zero
     }
     
-    private func getKey() -> Data {
-        // Identifier for our keychain entry - should be unique for your application
-        let keychainIdentifier = "io.Realm.EncryptionExampleKey"
-        let keychainIdentifierData = keychainIdentifier.data(using: String.Encoding.utf8, allowLossyConversion: false)!
-        // First check in the keychain for an existing key
-        var query: [NSString: AnyObject] = [
-            kSecClass: kSecClassKey,
-            kSecAttrApplicationTag: keychainIdentifierData as AnyObject,
-            kSecAttrKeySizeInBits: 512 as AnyObject,
-            kSecReturnData: true as AnyObject
-        ]
-        // To avoid Swift optimization bug, should use withUnsafeMutablePointer() function to retrieve the keychain item
-        // See also: http://stackoverflow.com/questions/24145838/querying-ios-keychain-using-swift/27721328#27721328
-        var dataTypeRef: AnyObject?
-        var status = withUnsafeMutablePointer(to: &dataTypeRef) { SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0)) }
-        if status == errSecSuccess {
-            // swiftlint:disable:next force_cast
-            return dataTypeRef as! Data
-        }
-        // No pre-existing key from this application, so generate a new one
-        // Generate a random encryption key
-        var key = Data(count: 64)
-        key.withUnsafeMutableBytes({ (pointer: UnsafeMutableRawBufferPointer) in
-            let result = SecRandomCopyBytes(kSecRandomDefault, 64, pointer.baseAddress!)
-            assert(result == 0, "Failed to get random bytes")
-        })
-        // Store the key in the keychain
-        query = [
-            kSecClass: kSecClassKey,
-            kSecAttrApplicationTag: keychainIdentifierData as AnyObject,
-            kSecAttrKeySizeInBits: 512 as AnyObject,
-            kSecValueData: key as AnyObject
-        ]
-        status = SecItemAdd(query as CFDictionary, nil)
-        assert(status == errSecSuccess, "Failed to insert the new key in the keychain")
-        return key
-    }
     private func createTimer() {
         if myTimer == nil {
             DispatchQueue.global().async {
@@ -200,23 +147,6 @@ class LogInViewController: UIViewController {
                 let userService = CurrentUserService()
                 self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
                 self.coordinator?.profileTransition(name: name, userService: userService)
-                
-                do {
-                    let realm = try? Realm(configuration: self.encryptionConfig)
-                    guard let users = realm?.objects(RealmUser.self) else { return }
-                    let user = users.where {
-                        $0.login == name && $0.password == password
-                    }
-                    
-                    guard user.isEmpty == false else { return }
-                    try realm?.write {
-                        user[0].isAuth = true
-                    }
-                    UserDefaults.standard.set(user[0].login, forKey: "login")
-                    
-                } catch {
-                    print(error)
-                }
             case .failure(_):
                 if name.isEmpty == true {
                     AppError().handle(error: .loginFieldEmpty(viewController: self))
@@ -240,17 +170,10 @@ class LogInViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(_):
-                do {
-                    let realm = try? Realm(configuration: self.encryptionConfig)
-                    try realm?.write {
-                        let user = RealmUser()
-                        user.login = name
-                        user.password = password
-                        realm?.add(user)
-                    }
-                } catch {
-                    print(error)
-                }
+                let userService = CurrentUserService()
+                self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
+                self.coordinator?.profileTransition(name: name, userService: userService)
+                AppError().handle(error: .registrationComplete(viewController: self))
                 AppError().handle(error: .registrationComplete(viewController: self))
             case .failure(_):
                 AppError().handle(error: .shortPassword(viewController: self))

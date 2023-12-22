@@ -9,9 +9,11 @@ import UIKit
 
 class PhotosTableViewCell: UITableViewCell {
     
+    var tapHandler: (() -> Void)?
+    
     private let content: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.createColor(lighMode: .white, darkMode: .black)
+        view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -29,8 +31,8 @@ class PhotosTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = UIColor.createColor(lighMode: .white, darkMode: .black)
-        imageView.image = UIImage(systemName: "arrow.right")?.withTintColor(UIColor.createColor(lighMode: .black, darkMode: .white), renderingMode: .alwaysOriginal)
+        imageView.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
+        imageView.image = UIImage(systemName: "arrow.right")?.withTintColor(UIColor.createColor(lightMode: .black, darkMode: .white), renderingMode: .alwaysOriginal)
         return imageView
     }()
     
@@ -46,6 +48,8 @@ class PhotosTableViewCell: UITableViewCell {
         return collectionView
     }()
     
+    private let createPostButton = CustomButton(title: "create.post".localized, backgroundColor: .systemCyan)
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layuot()
@@ -57,7 +61,8 @@ class PhotosTableViewCell: UITableViewCell {
     
     private func layuot() {
         
-        [content, nameOfSection, arrowImg, collectionView].forEach { contentView.addSubview($0) }
+        [content, nameOfSection, arrowImg, collectionView, createPostButton].forEach { contentView.addSubview($0) }
+        createPostButton.tapAction = tap
         
         NSLayoutConstraint.activate([
             content.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -65,12 +70,17 @@ class PhotosTableViewCell: UITableViewCell {
             content.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             content.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            nameOfSection.topAnchor.constraint(equalTo: content.topAnchor, constant: 12),
+            createPostButton.topAnchor.constraint(equalTo: content.topAnchor, constant: 12),
+            createPostButton.trailingAnchor.constraint(equalTo: content.trailingAnchor, constant: -12),
+            createPostButton.leadingAnchor.constraint(equalTo: content.leadingAnchor, constant: 12),
+            createPostButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            nameOfSection.topAnchor.constraint(equalTo: createPostButton.bottomAnchor, constant: 12),
             nameOfSection.leadingAnchor.constraint(equalTo: content.leadingAnchor, constant: 12),
             
             arrowImg.trailingAnchor.constraint(equalTo: content.trailingAnchor, constant: -12),
             arrowImg.centerYAnchor.constraint(equalTo: nameOfSection.centerYAnchor),
-            arrowImg.topAnchor.constraint(equalTo: content.topAnchor, constant: 12),
+            arrowImg.topAnchor.constraint(equalTo: createPostButton.bottomAnchor, constant: 12),
             
             collectionView.topAnchor.constraint(equalTo: nameOfSection.bottomAnchor, constant: 12),
             collectionView.leadingAnchor.constraint(equalTo: content.leadingAnchor, constant: 12),
@@ -79,12 +89,19 @@ class PhotosTableViewCell: UITableViewCell {
             collectionView.heightAnchor.constraint(equalToConstant: 92)
         ])
     }
+    
+    @objc
+    private func tap() {
+        if tapHandler != nil {
+            tapHandler?()
+        }
+    }
 }
 
 extension PhotosTableViewCell: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "phPreCell", for: indexPath) as! PhotosPreviewCollectionViewCell
-        cell.setupCell(photo: photos[indexPath.row])
+        cell.setupCell(photo: imageStorage[indexPath.row])
         return cell
     }
     

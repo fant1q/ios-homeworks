@@ -50,7 +50,7 @@ class ProfileHeaderView: UIView {
         textField.leftViewMode = .always
         textField.backgroundColor = .systemBackground
         textField.font = UIFont.systemFont(ofSize: 15)
-        textField.textColor = UIColor.createColor(lighMode: .black, darkMode: .white)
+        textField.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         textField.layer.cornerRadius = 12
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1
