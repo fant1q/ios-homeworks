@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseAuth
 
-final class LoginService: LoginServiceProtocol {
+final class LoginService: LoginServiceProtocol, LogInViewControllerDelegate {
     
     func checkCredentials(email: String, password: String, completion: @escaping (Result<AuthDataResult, NSError>) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in

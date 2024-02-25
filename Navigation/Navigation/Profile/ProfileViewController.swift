@@ -53,6 +53,7 @@ class ProfileViewController: UIViewController {
     private func layout() {
         view.addSubview(tableView)
         view.backgroundColor = .systemBackground
+        self.navigationController?.navigationItem.backBarButtonItem?.isEnabled = false
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name(rawValue: "reload"), object: nil)
         
         NSLayoutConstraint.activate([

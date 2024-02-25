@@ -105,7 +105,7 @@ extension FavoritesViewController: UITableViewDelegate {
         let action = UIContextualAction(style: .destructive, title: "delete.action".localized) { [weak self] (_, _, _) in
             guard let self = self else { return }
             let item = self.fecthedResultsController.object(at: indexPath)
-            coreDataService.deleteFavPost(item)
+            self.coreDataService.deleteFavPost(item)
             tableView.reloadData()
         }
         return .init(actions: [action])

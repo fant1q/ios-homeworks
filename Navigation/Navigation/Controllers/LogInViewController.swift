@@ -11,7 +11,7 @@ import FirebaseAuth
 class LogInViewController: UIViewController {
     
     private let nc = NotificationCenter.default
-    private lazy var delegate: LogInViewControllerDelegate = LoginInspector()
+    private lazy var delegate: LogInViewControllerDelegate = LoginService()
     private var handle: AuthStateDidChangeListenerHandle?
     var coordinator: LoginCoordinator?
     var myTimer: Timer?
@@ -75,7 +75,6 @@ class LogInViewController: UIViewController {
     
     private let loginButton = CustomButton(title: "enter.login.button".localized, backgroundColor: .systemBackground)
     private let signUpButton = CustomButton(title: "register.button".localized, backgroundColor: .systemIndigo)
-    private let biometryLoginButton = CustomButton(title: "Войти с помощью биометрии", backgroundColor: .systemPurple)
     private var counter = 31
     
     private let timerLabel: UILabel = {
@@ -92,8 +91,10 @@ class LogInViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         self.navigationController?.navigationBar.isHidden = true
+        tabBarController?.tabBar.isHidden = true
         layuot()
         createTimer()
+        biometryAuth()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -146,7 +147,9 @@ class LogInViewController: UIViewController {
             case .success(_):
                 let userService = CurrentUserService()
                 self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
                 self.coordinator?.profileTransition(name: name, userService: userService)
+                tabBarController?.tabBar.isHidden = false
             case .failure(_):
                 if name.isEmpty == true {
                     AppError().handle(error: .loginFieldEmpty(viewController: self))
@@ -181,13 +184,14 @@ class LogInViewController: UIViewController {
         })
     }
     
-    @objc private func biometryAuth() {
+    private func biometryAuth() {
         localAuthService.authorizeIfPossible { result in
             if result == true {
                 let name = self.loginField.text
                 let userService = CurrentUserService()
                 self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
                 self.coordinator?.profileTransition(name: name ?? "", userService: userService)
+                self.tabBarController?.tabBar.isHidden = false
             }
         }
     }
@@ -213,7 +217,6 @@ class LogInViewController: UIViewController {
         loginButton.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
         loginButton.tapAction = { try? self.loginTapAction() }
         signUpButton.tapAction = { self.registerUser() }
-        biometryLoginButton.tapAction = { self.biometryAuth() }
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -232,7 +235,7 @@ class LogInViewController: UIViewController {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
         
-        [loginField, passField, imageView, loginButton, timerLabel, signUpButton, biometryLoginButton].forEach { contentView.addSubview($0)}
+        [loginField, passField, imageView, loginButton, timerLabel, signUpButton].forEach { contentView.addSubview($0)}
         
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
@@ -262,12 +265,7 @@ class LogInViewController: UIViewController {
             signUpButton.trailingAnchor.constraint(equalTo: loginButton.trailingAnchor),
             signUpButton.leadingAnchor.constraint(equalTo: loginButton.leadingAnchor),
             signUpButton.heightAnchor.constraint(equalToConstant: 50),
-            
-            biometryLoginButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 8),
-            biometryLoginButton.trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor),
-            biometryLoginButton.leadingAnchor.constraint(equalTo: signUpButton.leadingAnchor),
-            biometryLoginButton.heightAnchor.constraint(equalToConstant: 50),
-            biometryLoginButton.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            signUpButton.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             
             timerLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             timerLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 50)

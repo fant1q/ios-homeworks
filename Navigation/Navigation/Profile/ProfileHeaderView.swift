@@ -11,11 +11,9 @@ import SnapKit
 
 class ProfileHeaderView: UIView {
     
-    let userService = CurrentUserService()
-    
     var name: UILabel = {
         let text = UILabel()
-        text.text = "cyberCat.profile.name".localized
+        text.text = "Cat"
         text.textColor = .label
         text.font = UIFont.boldSystemFont(ofSize: 18)
         text.translatesAutoresizingMaskIntoConstraints = false
@@ -123,9 +121,6 @@ class ProfileHeaderView: UIView {
         
         backgroundColor = .systemGray6
         
-        name.text = userService.user.name
-        avatar = userService.user.avatar
-        statusText.text = userService.user.status
         statusButton.addShadow()
         
         [name, statusButton, statusText, statusField, imageAnimation, avatar, closeButton].forEach { addSubview($0) }

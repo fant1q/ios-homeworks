@@ -23,6 +23,7 @@ class FavoritesTableViewCell: UITableViewCell {
         label.textColor = .label
         label.numberOfLines = 2
         label.backgroundColor = .systemBackground
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
     }()
     
@@ -31,6 +32,7 @@ class FavoritesTableViewCell: UITableViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = UIColor.createColor(lightMode: .black, darkMode: .systemGray6)
+        imageView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return imageView
     }()
     
@@ -40,6 +42,7 @@ class FavoritesTableViewCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .systemGray
         label.numberOfLines = 0
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
     }()
     

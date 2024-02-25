@@ -53,7 +53,6 @@
 		1D8D497E2AEAE2E3008C3FA1 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 1D8D497D2AEAE2E3008C3FA1 /* FirebaseDatabase */; };
 		1D8D49802AEAE2E3008C3FA1 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1D8D497F2AEAE2E3008C3FA1 /* FirebaseFirestore */; };
 		1D8D49832AEAE3B7008C3FA1 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1D8D49822AEAE3B7008C3FA1 /* SnapKit */; };
-		1D8D49852AEAE3B7008C3FA1 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 1D8D49842AEAE3B7008C3FA1 /* SnapKit-Dynamic */; };
 		1D8D93402A04331D004DD2F4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D8D93422A04331D004DD2F4 /* InfoPlist.strings */; };
 		1D9CD5BF29CF5B1400D1041C /* FavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9CD5BE29CF5B1400D1041C /* FavoritesTableViewCell.swift */; };
 		1D9DAB41281FEB140003E8AE /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DAB40281FEB140003E8AE /* ProfileHeaderView.swift */; };
@@ -73,8 +72,6 @@
 		1DCCB1C32A0439E60018CA97 /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCCB1C22A0439E60018CA97 /* ExtensionString.swift */; };
 		1DCCB1C62A04507A0018CA97 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 1DCCB1C82A04507A0018CA97 /* Localizable.stringsdict */; };
 		1DDFCC692843B64100FE101C /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDFCC682843B64100FE101C /* LogInViewController.swift */; };
-		1DEE567F2881A15300C64233 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DEE567E2881A15300C64233 /* Checker.swift */; };
-		1DEE56812881A9E200C64233 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DEE56802881A9E200C64233 /* LoginInspector.swift */; };
 		1DF1771129FEAB7B004B6D94 /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1771029FEAB7B004B6D94 /* MapModel.swift */; };
 		1DF1771329FEABB8004B6D94 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1771229FEABB8004B6D94 /* MapCoordinator.swift */; };
 		1DF1771529FEAC55004B6D94 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1771429FEAC55004B6D94 /* MapViewController.swift */; };
@@ -169,8 +166,6 @@
 		1DCCB1C72A04507A0018CA97 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		1DCCB1C92A04507F0018CA97 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		1DDFCC682843B64100FE101C /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
-		1DEE567E2881A15300C64233 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
-		1DEE56802881A9E200C64233 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 		1DF1771029FEAB7B004B6D94 /* MapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
 		1DF1771229FEABB8004B6D94 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		1DF1771429FEAC55004B6D94 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -193,7 +188,6 @@
 				1D8D497E2AEAE2E3008C3FA1 /* FirebaseDatabase in Frameworks */,
 				1D8D49832AEAE3B7008C3FA1 /* SnapKit in Frameworks */,
 				1D8D49802AEAE2E3008C3FA1 /* FirebaseFirestore in Frameworks */,
-				1D8D49852AEAE3B7008C3FA1 /* SnapKit-Dynamic in Frameworks */,
 				1D72652E286DCE8D00C139F5 /* Storage_Service.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,9 +327,7 @@
 			isa = PBXGroup;
 			children = (
 				1DA0C44228AD386D00FC68A4 /* ApiError.swift */,
-				1DEE567E2881A15300C64233 /* Checker.swift */,
 				1D360F512896D56000126F99 /* CustomButton.swift */,
-				1DEE56802881A9E200C64233 /* LoginInspector.swift */,
 				1D37EA73285D16DA0087175B /* Photo.swift */,
 				1DB18DE5287E056A001285DC /* User.swift */,
 				1D5BB1C4296C46670046ECCE /* LoginService.swift */,
@@ -413,7 +405,6 @@
 				1D8D497D2AEAE2E3008C3FA1 /* FirebaseDatabase */,
 				1D8D497F2AEAE2E3008C3FA1 /* FirebaseFirestore */,
 				1D8D49822AEAE3B7008C3FA1 /* SnapKit */,
-				1D8D49842AEAE3B7008C3FA1 /* SnapKit-Dynamic */,
 			);
 			productName = Navigation;
 			productReference = 1DCBF7C12808390900712F54 /* Navigation.app */;
@@ -511,7 +502,6 @@
 				1D5CC69C2AF7C9CC00587FF1 /* MyPostTableViewCell.swift in Sources */,
 				1D360F552896E7FF00126F99 /* FeedModel.swift in Sources */,
 				1D60C98828A92D2B00EAA684 /* InfoModel.swift in Sources */,
-				1DEE567F2881A15300C64233 /* Checker.swift in Sources */,
 				1DCBF7DF28084A3100712F54 /* PostViewController.swift in Sources */,
 				1DAF4AD12A11375400B83BCB /* LocalNotificationsService.swift in Sources */,
 				1D1E2BF628A3D72400985864 /* LoginCoordinator.swift in Sources */,
@@ -546,7 +536,6 @@
 				1D0D3FC328490ABE00F25F64 /* PostTableViewCell.swift in Sources */,
 				1D67373F29CDA81F00C9251B /* FavoritesCoordinator.swift in Sources */,
 				1DCCB1C32A0439E60018CA97 /* ExtensionString.swift in Sources */,
-				1DEE56812881A9E200C64233 /* LoginInspector.swift in Sources */,
 				1D67374729CDDE4000C9251B /* CoreDataService.swift in Sources */,
 				1D67373D29CDA74400C9251B /* FavoritesModel.swift in Sources */,
 				1D5CC6A42AF7E4BC00587FF1 /* CreatePostCoordinator.swift in Sources */,
@@ -937,11 +926,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1D8D49812AEAE3B7008C3FA1 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		1D8D49842AEAE3B7008C3FA1 /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1D8D49812AEAE3B7008C3FA1 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 

@@ -11,10 +11,10 @@ import UIKit
 final class TabBarFactory {
     
     enum Flow {
-        case first
-        case second
-        case third
-        case fourth
+        case login
+        case feed
+        case favorites
+        case map
     }
     
     let navigationController: UINavigationController = UINavigationController()
@@ -29,21 +29,21 @@ final class TabBarFactory {
     
     func startModule() {
         switch flow {
-        case .first:
+        case .login:
             let controller = LogInViewController()
             navigationController.tabBarItem = UITabBarItem(title: "profile.name".localized, image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
-            navigationController.delegate = LoginInspector() as? UINavigationControllerDelegate
+            navigationController.delegate = LoginService() as? UINavigationControllerDelegate
             navigationController.setViewControllers([controller], animated: true)
-        case .second:
+        case .feed:
             let viewModel = FeedModel()
             let controller = FeedViewController(model: viewModel)
             navigationController.tabBarItem = UITabBarItem(title: "feed.name".localized, image: UIImage(systemName: "info.bubble"), selectedImage: UIImage(systemName: "info.bubble.fill"))
             navigationController.setViewControllers([controller], animated: true)
-        case .third:
+        case .favorites:
             let controller = FavoritesViewController(model: FavoritesModel())
             navigationController.tabBarItem = UITabBarItem(title: "favorites.name".localized, image: UIImage(systemName: "heart"), selectedImage: UIImage(systemName: "heart.fill"))
             navigationController.setViewControllers([controller], animated: true)
-        case .fourth:
+        case .map:
             let controller = MapViewController(model: MapModel())
             navigationController.tabBarItem = UITabBarItem(title: "map.name".localized, image: UIImage(systemName: "map"), selectedImage: UIImage(systemName: "map.fill"))
             navigationController.setViewControllers([controller], animated: true)

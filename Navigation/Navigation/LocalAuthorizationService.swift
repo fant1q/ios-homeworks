@@ -24,6 +24,7 @@ final class LocalAuthorizationService {
                 if let error = error {
                     print("Попробуйте другой метод, \(error.localizedDescription)")
                     authorizationFinished(false)
+                    return
                 }
                 authorizationFinished(true)
             }
